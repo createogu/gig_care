@@ -9,3 +9,11 @@
     width: 100%;
     font-size: 1.5rem;
 }
+
+.childDiv{
+    padding-top: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-bottom: 10px;
+      
+}

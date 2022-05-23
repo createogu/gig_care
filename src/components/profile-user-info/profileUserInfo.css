@@ -4,11 +4,8 @@
 }
 
 #profileMain-thumnail-div {
-    display: flex;
-    flex-direction: row;
-
-
-
+    margin-left: 43%;
+    margin-bottom: 20px;
 }
 
 #profileMain-thumnail-img {
@@ -19,4 +16,8 @@
 
 #profileMain-userName {
     font-size: 2vmin;
+}
+
+.divider{
+    margin-bottom: 20px;
 }

@@ -13,6 +13,9 @@ export default function ProfileUserInfo() {
         <div id="profileMain-thumnail-div">
           <img id="profileMain-thumnail-img" src="./logo192.png" />
         </div>
+        <div>오민우</div>
+        <div id="profileMain-hpNo">010-7208-6332</div>
+        
         <Stack
           justifyContent="center"
           direction="row"
@@ -20,12 +23,11 @@ export default function ProfileUserInfo() {
           spacing={4}
         >
           <div> 대한민국</div>
-          <div>오민우</div>
+          
           <div>32</div>
           <div>남자</div>
         </Stack>
 
-        <div id="profileMain-hpNo">010-7208-6332</div>
       </div>
     </div>
   );

@@ -6,21 +6,24 @@ import Divider from "@mui/material/Divider";
 import "./profileUserIntroduce.css";
 
 export default function ProfileUserIntroduce() {
+  function tryLogin() {}
   return (
     <div>
-      <Container id="introduceDiv">
-        <TextField 
-          id="outlined-textarea"
-          placeholder="이 내용은 간병 수요자에게 보여집니다."
-          fullWidth
-          multiline
-        />
-      <div>
-        <Button variant="contained" disableElevation>
-          수정
-        </Button>
-      </div>        
-      </Container>
+      <TextField
+        id="outlined-textarea"
+        placeholder="이 내용은 간병 수요자에게 보여집니다."
+        fullWidth
+        multiline
+      />
+      <Button
+        type="submit"
+        fullWidth
+        variant="contained"
+        sx={{ mt: 3, mb: 2 }}
+        onClick={tryLogin}
+      >
+        저장
+      </Button>
     </div>
   );
 }

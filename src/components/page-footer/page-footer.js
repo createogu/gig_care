@@ -10,9 +10,21 @@ import ReceiptLongIcon from "@mui/icons-material/ReceiptLong";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import Paper from "@mui/material/Paper";
 import HomeIcon from "@mui/icons-material/Home";
-import LoginModal from "../../moodules/modal/loginModal";
+import LoginComponent from "../common-login/loginComponent";
 import Confirm from "../../moodules/comfirm/confirm";
 import { Routes, Route, Link, useNavigate } from "react-router-dom";
+
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+};
 
 export default function PageFooter(props) {
   let navigate = useNavigate();
@@ -51,7 +63,7 @@ export default function PageFooter(props) {
         onChange={handleChange}
       >
         <BottomNavigationAction
-          label="프로필"
+          label="내정보"
           value="profile"
           icon={<FaceIcon />}
         />
@@ -83,7 +95,7 @@ export default function PageFooter(props) {
             setIsLoginModalOpen(false);
           }}
         >
-          <LoginModal
+          <LoginComponent
             selectedMenuCode={selectedMenuCode}
             setLoginUserInfo={props.setLoginUserInfo}
             setIsModalOpen={setIsLoginModalOpen}
@@ -96,6 +108,7 @@ export default function PageFooter(props) {
            noBtnName : 취소 버튼 명
            yesBtnName : 확인 버튼 명 */}
       {isConfirmOpen ? (
+        <div style={style}>
         <Modal
           open={() => {
             setIsConfirmOpen(true);
@@ -106,7 +119,7 @@ export default function PageFooter(props) {
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
-          <Confirm
+          <Confirm 
             title={"로그인"}
             content={"로그인이 필요한 화면입니다. 로그인 하시겠습니까?"}
             noBtnName={"아니오"}
@@ -114,7 +127,7 @@ export default function PageFooter(props) {
             yesBtnName={"예"}
             yesEventFunction={setIsLoginModalOpen}
           ></Confirm>
-        </Modal>
+        </Modal></div>
       ) : null}
     </Paper>
   );
