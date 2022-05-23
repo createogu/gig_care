@@ -60,7 +60,7 @@ export default function PageFooter(props) {
           value="calender"
           icon={<CalendarMonthIcon />}
         />
-        <BottomNavigationAction label="홈화면" value="" icon={<HomeIcon />} />
+        <BottomNavigationAction label="홈화면" value="" icon={<HomeIcon />} /> 
         <BottomNavigationAction
           label="계약"
           value="contract"
