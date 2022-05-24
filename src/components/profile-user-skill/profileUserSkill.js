@@ -4,70 +4,49 @@ import "./profileUserSkill.css";
 import Stack from "@mui/material/Stack";
 import Divider from "@mui/material/Divider";
 import DoneIcon from "@mui/icons-material/Done";
+import { useState } from "react";
+import FullScreenDialog from "../../moodules/fullScreenDialog/fullScreenDialog";
+import ProfileUserSkillEdit from "./profileUserSkillEdit";
 export default function ProfileUserSkill() {
-  function tryLogin() {}
+  const [isOpenDialog, setIsOpenDialog] = useState(false);
+  const [mySkills, setMySkills] = useState([]);
+  function openEditDialog() {
+    setIsOpenDialog(true);
+  }
+
   return (
     <div id="profileSkillMain">
       <Grid container spacing={2}>
-        <Chip
-          className="CusotomChip"
-          label="석션"
-          variant="outlined"
-          color="primary"
-          icon={<DoneIcon />}
-        />
-        <Chip
-          className="CusotomChip"
-          label="기저귀"
-          variant="outlined"
-          color="primary"
-          icon={<DoneIcon />}
-        />
-        <Chip
-          className="CusotomChip"
-          label="기저귀"
-          variant="outlined"
-          color="primary"
-          icon={<DoneIcon />}
-        />
-        <Chip
-          className="CusotomChip"
-          label="기저귀"
-          variant="outlined"
-          color="primary"
-          icon={<DoneIcon />}
-        />
-        <Chip
-          className="CusotomChip"
-          label="기저귀"
-          variant="outlined"
-          color="primary"
-          icon={<DoneIcon />}
-        />
-        <Chip
-          className="CusotomChip"
-          label="기저귀"
-          variant="outlined"
-          color="primary"
-          icon={<DoneIcon />}
-        />
-        <Chip
-          className="CusotomChip"
-          label="기저귀"
-          variant="outlined"
-          color="primary"
-          icon={<DoneIcon />}
-        />
+        {mySkills.map((item, index) => {
+          return (
+            <div>
+              <Chip
+                className="CusotomChip"
+                label={item}
+                variant="outlined"
+                color="primary"
+                icon={<DoneIcon />}
+              />
+            </div>
+          );
+        })}
       </Grid>
       <Button
         type="submit"
         fullWidth
         variant="contained"
         sx={{ mt: 3, mb: 2 }}
-        onClick={tryLogin}
+        onClick={openEditDialog}
       >
         저장
-      </Button>      
+      </Button>
+      <FullScreenDialog
+        isOpenDialog={isOpenDialog}
+        setIsOpenDialog={setIsOpenDialog}
+        title={"보유기술 수정"}
+      >
+        <ProfileUserSkillEdit mySkills={mySkills} setMySkills={setMySkills}/>
+      </FullScreenDialog>
     </div>
   );
 }

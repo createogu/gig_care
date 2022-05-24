@@ -18,6 +18,7 @@ export default function Confirm(props) {
   };
 
   return (
+    <div className="modal">
     <SubWrap title={props.title}>
       <div id="content">
         <div id="contentText">{props.content}</div>
@@ -29,5 +30,6 @@ export default function Confirm(props) {
         </Button>
       </div>
     </SubWrap>
+  </div>
   );
 }

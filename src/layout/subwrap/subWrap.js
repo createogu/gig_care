@@ -10,9 +10,15 @@ export default function SubWrap(props) {
       <Paper className="subWrap" elevation={3}>
         {props.title != "" ? (
           <div className="subWrap-title">
-            {props.title} <Divider />
+            {props.title} 
           </div>
         ) : null}
+
+        {props.subTitle != "" ? (
+          <div className="subWrap-subTitle">
+            {props.subTitle} <Divider />
+          </div>
+        ) : <Divider />}
 
         <div className="childDiv">{props.children}</div>
       </Paper>

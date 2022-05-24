@@ -12,6 +12,7 @@ import Container from "@mui/material/Container";
 import loginUserInfo from "../../data/loginUserInfo";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
+import { Paper } from "@mui/material";
 
 function Copyright(props) {
   return (
@@ -22,9 +23,7 @@ function Copyright(props) {
       {...props}
     >
       {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Gig-간병
-      </Link>{" "}
+      Gig-간병
       {new Date().getFullYear()}
       {"."}
     </Typography>
@@ -32,8 +31,6 @@ function Copyright(props) {
 }
 
 const theme = createTheme();
-
-
 
 export default function LoginModal(props) {
   let navigate = useNavigate();
@@ -51,12 +48,12 @@ export default function LoginModal(props) {
     } else {
       props.setLoginUserInfo({ loginUserInfo });
       props.setIsModalOpen(false);
-      navigate('/'+props.selectedMenuCode)
+      navigate("/" + props.selectedMenuCode);
     }
   };
 
   return (
-    <div className="modal">
+    <div>
       <ThemeProvider theme={theme}>
         <Container component="main" maxWidth="xs">
           <CssBaseline />
@@ -77,7 +74,6 @@ export default function LoginModal(props) {
                 id="email"
                 label="이메일"
                 name="email"
-                autoComplete="email"
                 autoFocus
               />
               <TextField
@@ -88,7 +84,6 @@ export default function LoginModal(props) {
                 label="비밀번호"
                 type="password"
                 id="password"
-                autoComplete="current-password"
               />
               {/* 체크 하고 로그인하면 웹스토리지에 사용자 정보 저장 */}
               <FormControlLabel

@@ -5,6 +5,9 @@ import "./style/commonStyle.css";
 import Main from "./pages/main";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
+import * as serviceWorkerRegistration from './serviceWorkerRegistration';
+
+serviceWorkerRegistration.register();
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

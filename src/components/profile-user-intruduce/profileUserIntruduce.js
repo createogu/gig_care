@@ -1,29 +1,43 @@
 import * as React from "react";
 import { Button, Avatar, Paper, TextField, Container } from "@mui/material";
-
-import Divider from "@mui/material/Divider";
-
+import { useState } from "react";
+import FullScreenDialog from "../../moodules/fullScreenDialog/fullScreenDialog";
+import ProfileUserIntroduceEdit from "./ProfileUserIntroduceEdit";
 import "./profileUserIntroduce.css";
 
 export default function ProfileUserIntroduce() {
-  function tryLogin() {}
+  const [isOpenDialog, setIsOpenDialog] = useState(false);
+
+  function openEditDialog() {
+    setIsOpenDialog(true);
+  }
   return (
     <div>
       <TextField
         id="outlined-textarea"
-        placeholder="이 내용은 간병 수요자에게 보여집니다."
         fullWidth
+        InputProps={{
+          readOnly: true,
+        }}
         multiline
+        maxRows="5"
       />
       <Button
         type="submit"
         fullWidth
         variant="contained"
         sx={{ mt: 3, mb: 2 }}
-        onClick={tryLogin}
+        onClick={openEditDialog}
       >
-        저장
+        수정
       </Button>
+      <FullScreenDialog
+        isOpenDialog={isOpenDialog}
+        setIsOpenDialog={setIsOpenDialog}
+        title={"자기소개 수정"}
+      >
+        <ProfileUserIntroduceEdit />
+      </FullScreenDialog>
     </div>
   );
 }
