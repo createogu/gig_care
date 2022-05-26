@@ -1,0 +1,49 @@
+.calender {
+    border: 1px solid lightgray;
+}
+
+
+.calenderTitle {
+    background-color: #78cffd;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+ 
+.arrowIcon {
+    margin: 0 16px;
+}
+
+
+.weekDays {
+    list-style: none;
+    padding: 0;
+}
+
+
+.date {
+    display: inline-block;
+    width: calc(100% / 7);
+    text-align: center;
+    margin-bottom: 30px;
+    
+    
+}
+
+
+.dateText {
+    
+}
+
+
+
+.selected {
+    background: yellow
+}
+
+
+.graySelected {
+    background: lightgray
+}

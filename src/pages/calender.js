@@ -14,7 +14,7 @@ const Calender = () => {
         alignItems="center"
         spacing={2}
       >
-        <SubWrap title={"안내사항"}>
+        <SubWrap title={"안내사항"} subTitle={"날짜 클릭 선택, 다시 누르면 취소"}>
           <CalenderComponent />
         </SubWrap>
       </Stack>
