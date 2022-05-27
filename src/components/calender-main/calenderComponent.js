@@ -4,6 +4,9 @@ import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import ArrowLeft from "@mui/icons-material/ArrowLeft";
 import ArrowRight from "@mui/icons-material/ArrowRight";
+import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
+import CheckBoxIcon from "@mui/icons-material/CheckBox";
+import Divider from "@mui/material/Divider";
 import "./calenderComponent.css";
 
 export default function CalenderComponent() {
@@ -14,6 +17,7 @@ export default function CalenderComponent() {
   const [daysInMonth, setDaysInMonth] = useState(new Date(year, month + 1, 0));
   const [selectedDateCount, setSelectedDateCount] = useState(0);
   const [selectedDateObjectArray, setSelectedDateObjectArray] = useState([]);
+
   useEffect(() => {
     let _temp = new Date(year, month + 1, 0);
     setDaysInMonth(_temp.getDate());
@@ -23,6 +27,24 @@ export default function CalenderComponent() {
   useEffect(() => {
     let _temp = new Date(year, month, 1);
     setWeekStartDay(_temp.getDay());
+    console.log(weekStartDay);
+  }, [month, year]);
+
+  useEffect(() => {
+    let copySelectedDateObjectArray = new Array();
+    let _temp = new Date(year, month + 1, 0);
+    for (let index = 0; index < _temp.getDate(); index++) {
+      let date = new Date(year, month, index + 1);
+      let tempObject = {
+        date: date,
+        workYn: false,
+        holidayYn: date.getDay() == 0 ? true : false,
+      };
+      copySelectedDateObjectArray.push(tempObject);
+    }
+
+    setSelectedDateObjectArray(copySelectedDateObjectArray);
+    console.log(selectedDateObjectArray);
   }, [month, year]);
 
   const monthName = () => {
@@ -42,32 +64,6 @@ export default function CalenderComponent() {
 
   // 날짜 누르면 선택
   // 다시 누르면 취소
-  const handleDateSelection = (e) => {
-    let _date = parseInt(e.target.textContent);
-    let selectedDate = new Date(year, month, _date);
-    let includeNum = -1;
-    let copyArray = [...selectedDateObjectArray];
-
-    for (let index = 0; index < selectedDateObjectArray.length; index++) {
-      if (selectedDateObjectArray[index].getTime() == selectedDate.getTime()) {
-        includeNum = index;
-      }
-    }
-
-    if (includeNum < 0) {
-      copyArray.push(selectedDate);
-      setSelectedDateObjectArray(copyArray);
-      e.target.className = "date graySelected";
-    } else {
-      copyArray.splice(includeNum, 1);
-      setSelectedDateObjectArray(copyArray);
-      e.target.className = "date";
-    }
-
-    let arrayCount = copyArray.length;
-    console.log(copyArray);
-    setSelectedDateCount(arrayCount);
-  };
 
   return (
     <div>
@@ -98,14 +94,35 @@ export default function CalenderComponent() {
               <Typography variant="h5">{day.toUpperCase()}</Typography>
             </li>
           ))}
+          <Divider variant="middle" />
           {[...new Array(weekStartDay)].map((elem, i) => (
             <li key={i} className="date"></li>
           ))}
-          {[...new Array(daysInMonth)].map((elem, i) => (
-            <li key={i} className="date" onClick={handleDateSelection}>
-              <Typography variant="h6" >
-                {i + 1}
-              </Typography>
+          {selectedDateObjectArray.map((elem, i) => (
+            <li
+              key={i}
+              className="date"
+              onClick={() => {
+                let copySelectedDateObjectArray = [...selectedDateObjectArray];
+                copySelectedDateObjectArray[i].workYn =
+                  copySelectedDateObjectArray[i].workYn ? false : true;
+                setSelectedDateObjectArray(copySelectedDateObjectArray);
+
+                let workDayCnt = copySelectedDateObjectArray.filter(
+                  (item) => item.workYn == true
+                ).length;
+                setSelectedDateCount(workDayCnt);
+              }}
+            >
+              {elem.holidayYn ? (
+                <Typography variant="h6" style={{ color: "red" }}>
+                  {elem.date.getDate()}
+                </Typography>
+              ) : (
+                <Typography variant="h6">{elem.date.getDate()}</Typography>
+              )}
+
+              {elem.workYn ? <CheckBoxIcon /> : <CheckBoxOutlineBlankIcon />}
             </li>
           ))}
         </ul>
