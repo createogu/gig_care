@@ -27,10 +27,10 @@ const Main = () => {
             />
           }
         />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/calender" element={<Calender />} />
-        <Route path="/contract" element={<Contract />} />
-        <Route path="/payment" element={<Payment />} />
+        <Route path="/profile" element={<Profile loginUserInfo={loginUserInfo} />} />
+        <Route path="/calender" element={<Calender loginUserInfo={loginUserInfo} />} />
+        <Route path="/contract" element={<Contract loginUserInfo={loginUserInfo} />} />
+        <Route path="/payment" element={<Payment loginUserInfo={loginUserInfo} />} />
       </Routes>
       <PageFooter
         value={value}

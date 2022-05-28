@@ -8,17 +8,15 @@ export default function SubWrap(props) {
   return (
     <Container maxWidth={"sm"}>
       <Paper className="subWrap" elevation={3}>
-        {props.title != "" ? (
-          <div className="subWrap-title">
-            {props.title} 
-          </div>
-        ) : null}
+        <div className="subWrap-title">
+          {props.title}
+        </div>
+        <div className="subWrap-subTitle">
+          {props.subTitle}
+        </div>
 
-        {props.subTitle != "" ? (
-          <div className="subWrap-subTitle">
-            {props.subTitle} <Divider />
-          </div>
-        ) : <Divider />}
+
+        {(props.title == "" || props.subTitle == "") ? null : <Divider />}
 
         <div className="childDiv">{props.children}</div>
       </Paper>

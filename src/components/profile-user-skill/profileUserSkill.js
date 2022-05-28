@@ -22,7 +22,7 @@ export default function ProfileUserSkill() {
             <div>
               <Chip
                 className="CusotomChip"
-                label={item}
+                label={item.comm_nm}
                 variant="outlined"
                 color="primary"
                 icon={<DoneIcon />}
@@ -35,17 +35,17 @@ export default function ProfileUserSkill() {
         type="submit"
         fullWidth
         variant="contained"
-        sx={{ mt: 3, mb: 2 }}
+        sx={{ mt: 1, mb: 1 }}
         onClick={openEditDialog}
       >
-        저장
+        수정
       </Button>
       <FullScreenDialog
         isOpenDialog={isOpenDialog}
         setIsOpenDialog={setIsOpenDialog}
         title={"보유기술 수정"}
       >
-        <ProfileUserSkillEdit mySkills={mySkills} setMySkills={setMySkills}/>
+        <ProfileUserSkillEdit mySkills={mySkills} setMySkills={setMySkills} />
       </FullScreenDialog>
     </div>
   );
