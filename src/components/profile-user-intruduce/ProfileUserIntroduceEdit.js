@@ -17,13 +17,13 @@ export default function ProfileUserIntroduceEdit(props) {
   function validateCheck(value) {
     let valiText = textLength > 100 ? "입력가능한 글자수를 초과했습니다." : null;
     let Validate = textLength > 100 ? false : true;
-    let rowCount = 
+     
     setValidateText(valiText);
     setIsValidate(Validate);
   }
   useEffect(() => {
     setIntroduce(props.myIntroduce);
-    setTextLength(props.myIntroduce.length)
+    setTextLength(props.myIntroduce == null ? 0 : props.myIntroduce.length)
   }, [])
 
   return (

@@ -16,7 +16,6 @@ const Main = () => {
 
   return (
     <div className="mainWrap">
-
       <Routes>
         <Route
           path="/"
@@ -27,10 +26,22 @@ const Main = () => {
             />
           }
         />
-        <Route path="/profile" element={<Profile loginUserInfo={loginUserInfo} />} />
-        <Route path="/calender" element={<Calender loginUserInfo={loginUserInfo} />} />
-        <Route path="/contract" element={<Contract loginUserInfo={loginUserInfo} />} />
-        <Route path="/payment" element={<Payment loginUserInfo={loginUserInfo} />} />
+        <Route
+          path="/profile"
+          element={<Profile loginUserInfo={loginUserInfo} />}
+        />
+        <Route
+          path="/calender"
+          element={<Calender loginUserInfo={loginUserInfo} />}
+        />
+        <Route
+          path="/contract"
+          element={<Contract loginUserInfo={loginUserInfo} />}
+        />
+        <Route
+          path="/payment"
+          element={<Payment loginUserInfo={loginUserInfo} />}
+        />
       </Routes>
       <PageFooter
         value={value}

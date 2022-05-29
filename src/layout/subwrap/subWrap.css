@@ -1,19 +1,15 @@
 .subWrap {
-
     padding-top: 15px;
     padding-bottom: 15px;
-    padding-left: 15px;
 }
 
 .subWrap-title {
     width: 100%;
     font-size: 1.5rem;
+    padding-left: 15px;
 }
 
-.childDiv{
+.childDiv {
     padding-top: 15px;
-    padding-left: 15px;
-    padding-right: 15px;
     padding-bottom: 10px;
-      
 }
