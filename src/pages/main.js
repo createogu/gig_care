@@ -2,10 +2,12 @@ import React from "react";
 import { useState } from "react";
 import { Routes, Route, Link, useNavigate, Outlet } from "react-router-dom";
 import Home from "./home.js";
+import SignUp from "./SignUp";
 import Profile from "./profile.js";
 import Calender from "./calender.js";
 import Contract from "./contract.js";
 import Payment from "./payment.js";
+import KakaoRedirectHandeler from "../oauth/kakaoRedirectHandeler";
 import MainHeader from "../components/page-header/main-header.js";
 import SubHeader from "../components/page-header/sub-header.js";
 import PageFooter from "../components/page-footer/page-footer.js";
@@ -27,6 +29,10 @@ const Main = () => {
           }
         />
         <Route
+          path="/SignUp"
+          element={<SignUp />}
+        />
+        <Route
           path="/profile"
           element={<Profile loginUserInfo={loginUserInfo} />}
         />
@@ -41,6 +47,10 @@ const Main = () => {
         <Route
           path="/payment"
           element={<Payment loginUserInfo={loginUserInfo} />}
+        />
+        <Route
+          path="/oauth/callback/kakao"
+          element={<KakaoRedirectHandeler/>}
         />
       </Routes>
       <PageFooter

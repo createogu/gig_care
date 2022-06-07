@@ -10,7 +10,7 @@ import ReceiptLongIcon from "@mui/icons-material/ReceiptLong";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import Paper from "@mui/material/Paper";
 import HomeIcon from "@mui/icons-material/Home";
-import LoginComponent from "../common-login/loginComponent";
+import KakaoLoginComponent from "../common-login/KakaoLoginComponent";
 import Confirm from "../../moodules/comfirm/confirm";
 import { Routes, Route, Link, useNavigate } from "react-router-dom";
 
@@ -87,7 +87,7 @@ export default function PageFooter(props) {
             setIsLoginModalOpen(false);
           }}
         >
-          <LoginComponent
+          <KakaoLoginComponent
             selectedMenuCode={selectedMenuCode}
             setLoginUserInfo={props.setLoginUserInfo}
             setIsModalOpen={setIsLoginModalOpen}
