@@ -16,16 +16,25 @@ export default function KakaoRedirectHandeler() {
         );
         let rtnData = res.data;
 
-        console.log(rtnData);
-
-        window.localStorage.setItem(
-          "userInfo",
-          JSON.stringify(rtnData.userProfile)
-        );
+        // window.localStorage.setItem(
+        //   "userInfo",
+        //   JSON.stringify(rtnData.userProfile)
+        // );
 
         if (rtnData.accountYn == "N") {
-          navigate("/SignUp");
+          if (
+            window.confirm("사용자 정보가 없습니다. 회원가입 하시겠습니까?")
+          ) {
+            navigate("/SignUp", {
+              state: { userProfile: rtnData.userProfile },
+            });
+          }
         } else {
+          console.log(rtnData.userProfile);
+          window.localStorage.setItem(
+            "userInfo",
+            JSON.stringify(rtnData.userProfile)
+          );
           navigate("/");
         }
       } catch (e) {

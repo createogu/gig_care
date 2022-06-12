@@ -108,6 +108,7 @@ const MainHeader = (props) => {
                   textAlign="center"
                   onClick={() => {
                     props.setLoginUserInfo(null);
+                    window.localStorage.removeItem("userInfo");
                   }}
                 >
                   로그아웃

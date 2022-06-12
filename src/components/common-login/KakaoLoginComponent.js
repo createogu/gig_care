@@ -49,7 +49,7 @@ export default function KakaoLoginModal(props) {
             }}
           >
             <a href={KAKAO_AUTH_URL}>
-              <div className="kakao_btn">{KAKAO_AUTH_URL}</div>
+              <div className="kakao_btn"></div>
             </a>
           </Box>
           <Copyright sx={{ mt: 8, mb: 4 }} />

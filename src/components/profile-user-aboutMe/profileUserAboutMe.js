@@ -1,20 +1,27 @@
 import * as React from "react";
-import { Button, Avatar, Paper, TextField, Container, Typography } from "@mui/material";
+import {
+  Button,
+  Avatar,
+  Paper,
+  TextField,
+  Container,
+  Typography,
+} from "@mui/material";
 import { useState } from "react";
 import FullScreenDialog from "../../moodules/fullScreenDialog/fullScreenDialog";
-import ProfileUserIntroduceEdit from "./ProfileUserIntroduceEdit";
-import "./profileUserIntroduce.css";
+import ProfileUserAboutMeEdit from "./ProfileUserAboutMeEdit";
+import "./profileUserAboutMe.css";
 
-export default function ProfileUserIntroduce() {
+export default function ProfileUserAboutMe(props) {
   const [isOpenDialog, setIsOpenDialog] = useState(false);
-  const [myIntroduce, setMyIntroduce] = useState();
+  const [myAboutMe, setMyAboutMe] = useState();
   function openEditDialog() {
     setIsOpenDialog(true);
   }
   return (
     <div>
       <Typography variant="body1" whiteSpace={"pre-wrap"}>
-        {myIntroduce}
+        {myAboutMe}
       </Typography>
       <Button
         type="submit"
@@ -30,7 +37,12 @@ export default function ProfileUserIntroduce() {
         setIsOpenDialog={setIsOpenDialog}
         title={"자기소개 수정"}
       >
-        <ProfileUserIntroduceEdit setIsOpenDialog={setIsOpenDialog} myIntroduce={myIntroduce} setMyIntroduce={setMyIntroduce} />
+        <ProfileUserAboutMeEdit
+          setIsOpenDialog={setIsOpenDialog}
+          loginUserInfo={props.loginUserInfo}
+          myAboutMe={myAboutMe}
+          setMyAboutMe={setMyAboutMe}
+        />
       </FullScreenDialog>
     </div>
   );

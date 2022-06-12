@@ -1,0 +1,23 @@
+#profileMain {
+    text-align: center;
+
+}
+
+#profileMain-thumnail-div {
+    margin-left: 43%;
+    margin-bottom: 20px;
+}
+
+#profileMain-thumnail-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+#profileMain-userName {
+    font-size: 2vmin;
+}
+
+.divider{
+    margin-bottom: 20px;
+}

@@ -2,8 +2,10 @@ import React from "react";
 import SubHeader from "../components/page-header/sub-header.js";
 import ProfileUserInfo from "../components/profile-user-info/profileUserInfo";
 import ProfileUserCareer from "../components/profile-user-career/profileUserCareer";
-import ProfileUserIntroduce from "../components/profile-user-intruduce/profileUserIntruduce";
+import ProfileUserAboutMe from "../components/profile-user-aboutMe/profileUserAboutMe";
+import ProfileUserDetail from "../components/profile-user-detail/profileUserDetail";
 import ProfileUserSkill from "../components/profile-user-skill/profileUserSkill.js";
+import CanWorkDayCalender from "../components/calender-main/calenderComponent";
 import Grid from "@mui/material/Grid";
 import MainWrap from "../layout/mainwrap/mainWrap";
 import SubWrap from "../layout/subwrap/subWrap";
@@ -15,31 +17,39 @@ const Profile = (props) => {
     <MainWrap>
       <SubHeader title="프로필" />
       <Grid container spacing={2}>
-        <Grid item xs={16} md={4} order={0}>
+        <Grid item xs={12} md={12} order={0}>
           <SubWrap title={""}>
             <ProfileUserInfo loginUserInfo={props.loginUserInfo} />
           </SubWrap>
         </Grid>
-        <Grid item xs={16} md={4}>
+        <Grid item xs={12} md={12} order={0}>
+          <SubWrap title={"상세정보"}>
+            <ProfileUserDetail loginUserInfo={props.loginUserInfo} />
+          </SubWrap>
+        </Grid>
+        <Grid item xs={12} md={12}>
           <SubWrap title={"자기소개"} order={2}>
-            <ProfileUserIntroduce />
+            <ProfileUserAboutMe loginUserInfo={props.loginUserInfo}/>
           </SubWrap>
         </Grid>
 
-
-
-        <Grid item xs={16} md={4} order={3}>
-          <SubWrap title={"보유기술"}>
-            <ProfileUserSkill />
+        <Grid item xs={12} md={12} order={3}>
+          <SubWrap title={"희망근무"}>
+            <ProfileUserSkill loginUserInfo={props.loginUserInfo}/>
           </SubWrap>
         </Grid>
-        <Grid item xs={16} md={4} order={4}>
-          <SubWrap title={"간병이력"}>
-            <ProfileUserCareer />
+        <Grid item xs={12} md={12} order={4}>
+          <SubWrap title={"근무가능일"}>
+            <CanWorkDayCalender loginUserInfo={props.loginUserInfo}/>
+          </SubWrap>
+        </Grid>
+        <Grid item xs={12} md={12} order={4}>
+          <SubWrap title={"근무이력"}>
+            <ProfileUserCareer loginUserInfo={props.loginUserInfo}/>
           </SubWrap>
         </Grid>
       </Grid>
-    </MainWrap >
+    </MainWrap>
   );
 };
 

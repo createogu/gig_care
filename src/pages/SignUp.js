@@ -14,7 +14,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 function Copyright(props) {
@@ -36,28 +36,40 @@ function Copyright(props) {
 }
 
 const theme = createTheme();
-export default function SignUp() {
+export default function SignUp(props) {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const userInfo = location.state.userProfile;
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
 
-    axios.post(
-      "http://localhost:8080/construct/user/signUp.do",
-      {
-        email: data.get("email"),
-        name: data.get("name"),
-        hp_no: data.get("hp_no"),
-        year: data.get("year"),
-        month: data.get("month"),
-        day: data.get("day"),
-        sex: data.get("sex"),
+    (async () => {
+      try {
+        const res = await axios.post(
+          "http://localhost:8080/construct/user/signUp.do",
+          {
+            userEmail: data.get("email"),
+            userNm: data.get("name"),
+            userTelno: data.get("hp_no"),
+            thumnailImgUrl: userInfo.profile_imageUrl,
+          }
+        );
+
+        let rtnData = res.data;
+
+        if (rtnData.rtnMsg) {
+          alert("정상적으로 회원가입 되었습니다.");
+          navigate("/");
+        } else {
+          alert("오류가 발생했습니다.");
+        }
+      } catch (e) {
+        alert("오류가 발생했습니다.");
       }
-      
-    )
-      
+    })();
   };
-  const userInfo = JSON.parse(window.localStorage.getItem("userInfo"));
 
   return (
     <ThemeProvider theme={theme}>
@@ -114,65 +126,7 @@ export default function SignUp() {
                   id="hp_no"
                   helperText="숫자만 입력해주세요"
                 />
-              </Grid>              
-              <Grid item xs={4}>
-                <FormControl fullWidth size="small">
-                  <InputLabel id="demo-simple-select-label">년도</InputLabel>
-                  <Select
-                    labelId="demo-simple-select-label"
-                    id="year"
-                    name="year"
-                    label="년도"
-                    required
-                  >
-                    <MenuItem value={1991}>1991</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
-                  </Select>
-                </FormControl>
               </Grid>
-              <Grid item xs={4}>
-                <FormControl fullWidth size="small">
-                  <InputLabel id="demo-simple-select-label">월</InputLabel>
-                  <Select
-                    labelId="demo-simple-select-label"
-                    id="month"
-                    name="month"
-                    label="년도"
-                    required
-                  >
-                    <MenuItem value={9}>9월</MenuItem>
-                  </Select>
-                </FormControl>
-              </Grid>
-              <Grid item xs={4}>
-                <FormControl fullWidth size="small">
-                  <InputLabel id="demo-simple-select-label">일</InputLabel>
-                  <Select
-                    labelId="demo-simple-select-label"
-                    id="day"
-                    name="day"
-                    label="일"
-                  >
-                    <MenuItem value={29}>29일</MenuItem>
-                  </Select>
-                </FormControl>
-              </Grid>
-              <Grid item xs={12}>
-                <FormControl fullWidth size="small">
-                  <InputLabel id="demo-simple-select-label">성별</InputLabel>
-                  <Select
-                    labelId="demo-simple-select-label"
-                    id="sex"
-                    name="sex"
-                    label="성별"
-                  >
-                    <MenuItem value={"male"}>남자</MenuItem>
-                    <MenuItem value={"female"}>여자</MenuItem>
-                  </Select>
-                </FormControl>
-              </Grid>
-
             </Grid>
             <Button
               type="submit"

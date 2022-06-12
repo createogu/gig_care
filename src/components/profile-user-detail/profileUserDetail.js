@@ -9,9 +9,9 @@ import {
   Typography,
 } from "@mui/material";
 
-export default function ProfileUserInfo(props) {
+export default function ProfileUserDetail(props) {
   let user = props.loginUserInfo;
-  
+  console.log(user);
   if (user == null) {
     user = {
       userId: "createogu@gmail.com",
@@ -30,21 +30,21 @@ export default function ProfileUserInfo(props) {
       }}
     >
       <Avatar
-        src={user.thumnailImgUrl}
+        src={user.avatar}
         sx={{
-          height: 128,
+          height: 64,
           mb: 2,
-          width: 128,
+          width: 64,
         }}
       />
       <Typography color="textPrimary" gutterBottom variant="h5">
         {user.userNm}
       </Typography>
       <Typography color="textSecondary" variant="h8"  marginBottom={1}>
-        {user.genderCd}
+        {user.userId}
       </Typography>
       <Typography color="textSecondary" variant="h8">
-        {user.age}
+        {user.hpNo}
       </Typography>
     </Box>
   );
