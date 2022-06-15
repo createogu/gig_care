@@ -1,28 +1,22 @@
-import * as React from "react";
-import {
-  Button,
-  Avatar,
-  Paper,
-  TextField,
-  Container,
-  Typography,
-} from "@mui/material";
-import { useState } from "react";
+import { Box, Typography, Button } from "@mui/material";
+import Container from "@mui/material/Container";
 import FullScreenDialog from "../../moodules/fullScreenDialog/fullScreenDialog";
-import ProfileUserAboutMeEdit from "./ProfileUserAboutMeEdit";
-import "./profileUserAboutMe.css";
+import ProfileUserAdressEdit from "./profileUserAdressEdit";
+import { useState } from "react";
 
-export default function ProfileUserAboutMe(props) {
+export default function ProfileUserAdress(props) {
+  let user = props.loginUserInfo;
   const [isOpenDialog, setIsOpenDialog] = useState(false);
-  const [myAboutMe, setMyAboutMe] = useState();
+  const [myAdress, setMyAdress] = useState();
   function openEditDialog() {
     setIsOpenDialog(true);
   }
+
   return (
     <div>
       <Container>
-        <Typography variant="body1" whiteSpace={"pre-wrap"}>
-          {myAboutMe}
+        <Typography color="textPrimary" gutterBottom variant="h5">
+          {user.userNm}
         </Typography>
       </Container>
       <Button
@@ -37,13 +31,13 @@ export default function ProfileUserAboutMe(props) {
       <FullScreenDialog
         isOpenDialog={isOpenDialog}
         setIsOpenDialog={setIsOpenDialog}
-        title={"자기소개 수정"}
+        title={"내 주소 설정"}
       >
-        <ProfileUserAboutMeEdit
+        <ProfileUserAdressEdit
           setIsOpenDialog={setIsOpenDialog}
           loginUserInfo={props.loginUserInfo}
-          myAboutMe={myAboutMe}
-          setMyAboutMe={setMyAboutMe}
+          myAdress={myAdress}
+          setMyAdress={setMyAdress}
         />
       </FullScreenDialog>
     </div>

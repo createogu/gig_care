@@ -20,7 +20,7 @@ const Main = () => {
   useEffect(() => {
     console.log(window.localStorage.getItem("userInfo"))
     if (window.localStorage.getItem("userInfo") ?? false) {
-      const userInfo = JSON.parse(window.localStorage.getItem("userInfo"));
+      const userInfo = JSON.parse(window.localStorage.getItem("userInfo")); 
       setLoginUserInfo(userInfo);
     }
   }, []);

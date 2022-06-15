@@ -3,6 +3,7 @@ import { Button, Avatar, Chip, Grid } from "@mui/material";
 import "./profileUserSkill.css";
 import Stack from "@mui/material/Stack";
 import Divider from "@mui/material/Divider";
+import Container from '@mui/material/Container';
 import DoneIcon from "@mui/icons-material/Done";
 import { useState } from "react";
 import FullScreenDialog from "../../moodules/fullScreenDialog/fullScreenDialog";
@@ -16,6 +17,7 @@ export default function ProfileUserSkill() {
 
   return (
     <div id="profileSkillMain">
+      <Container>
       <Grid container spacing={2}>
         {mySkills.map((item, index) => {
           return (
@@ -31,6 +33,7 @@ export default function ProfileUserSkill() {
           );
         })}
       </Grid>
+      </Container>
       <Button
         type="submit"
         fullWidth
