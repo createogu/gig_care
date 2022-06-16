@@ -1,13 +1,13 @@
 import { Box, Typography, Button } from "@mui/material";
 import Container from "@mui/material/Container";
 import FullScreenDialog from "../../moodules/fullScreenDialog/fullScreenDialog";
-import ProfileUserAdressEdit from "./profileUserAdressEdit";
+import ProfileUserAdressEdit from "./profileUserAddressEdit";
 import { useState } from "react";
 
-export default function ProfileUserAdress(props) {
+export default function ProfileUserAddress(props) {
   let user = props.loginUserInfo;
   const [isOpenDialog, setIsOpenDialog] = useState(false);
-  const [myAdress, setMyAdress] = useState();
+  const [myAddress, setMyAddress] = useState();
   function openEditDialog() {
     setIsOpenDialog(true);
   }
@@ -36,8 +36,8 @@ export default function ProfileUserAdress(props) {
         <ProfileUserAdressEdit
           setIsOpenDialog={setIsOpenDialog}
           loginUserInfo={props.loginUserInfo}
-          myAdress={myAdress}
-          setMyAdress={setMyAdress}
+          myAddress={myAddress}
+          setMyAdress={setMyAddress}
         />
       </FullScreenDialog>
     </div>

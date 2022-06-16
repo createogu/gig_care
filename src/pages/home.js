@@ -12,7 +12,7 @@ const Home = (propse) => {
 
       <Paper elevation={3} className="subWrap">
         <h2> 안녕하세요</h2>
-        <p>간병인페이지 만들고있습니다.</p>
+        <p>일단 기능 컴포넌트 단위로 구현해보고있습니다.</p>
         <p>디자인 어렵습니다.</p>
         <p>기획도 어렵습니다.</p>
         <p>ㅠㅠㅠ</p>

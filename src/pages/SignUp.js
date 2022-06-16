@@ -48,7 +48,7 @@ export default function SignUp(props) {
     (async () => {
       try {
         const res = await axios.post(
-          "http://localhost:8080/construct/user/signUp.do",
+          "http://construct.agig.co.kr/construct/user/signUp.do",
           {
             userEmail: data.get("email"),
             userNm: data.get("name"),

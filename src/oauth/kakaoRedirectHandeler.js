@@ -12,7 +12,7 @@ export default function KakaoRedirectHandeler() {
     (async () => {
       try {
         const res = await axios.get(
-          `http://localhost:8080/construct/user/KakaoLogin.do?code=${code}`
+          `http://construct.agig.co.kr/construct/user/KakaoLogin.do?code=${code}`
         );
         let rtnData = res.data;
 

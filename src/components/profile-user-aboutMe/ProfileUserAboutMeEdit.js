@@ -36,7 +36,7 @@ export default function ProfileUserAboutMeEdit(props) {
     (async () => {
       try {
         const res = await axios.post(
-          "http://localhost:8080/construct/user/modify.do",
+          "http://construct.agig.co.kr/construct/user/modify.do",
           {
             userId: props.loginUserInfo.userId,
             aboutMe: AboutMe,

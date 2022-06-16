@@ -3,7 +3,7 @@ import SubHeader from "../components/page-header/sub-header.js";
 import ProfileUserInfo from "../components/profile-user-info/profileUserInfo";
 import ProfileUserCareer from "../components/profile-user-career/profileUserCareer";
 import ProfileUserAboutMe from "../components/profile-user-aboutMe/profileUserAboutMe";
-import ProfileUserAdress from "../components/profile-user-detail/profileUserAdress";
+import ProfileUserAddress from "../components/profile-user-address/profileUserAddress";
 import ProfileUserSkill from "../components/profile-user-skill/profileUserSkill.js";
 import CanWorkDayCalender from "../components/calender-main/calenderComponent";
 import Grid from "@mui/material/Grid";
@@ -24,7 +24,7 @@ const Profile = (props) => {
         </Grid>
         <Grid item xs={12} md={12} order={0}>
           <SubWrap title={"내 주소"}>
-            <ProfileUserAdress loginUserInfo={props.loginUserInfo} />
+            <ProfileUserAddress loginUserInfo={props.loginUserInfo} />
           </SubWrap>
         </Grid>
         <Grid item xs={12} md={12}>
