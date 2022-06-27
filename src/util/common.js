@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 export  function getLocation() {
   let lat = "";
   let long = "";
-  const tempLocation = new Map();
+  const tempLocation = [];
 
   if (navigator.geolocation) {
     // GPS를 지원하면
@@ -12,8 +12,10 @@ export  function getLocation() {
         lat = position.coords.latitude;
         long = position.coords.longitude;
 
-        tempLocation.set("lat", lat);
-        tempLocation.set("long", long);
+        
+        tempLocation[0] =  lat;
+        tempLocation[1] =  long;
+        
       },
       function (error) {
         console.error(error);
@@ -28,7 +30,6 @@ export  function getLocation() {
     alert("GPS를 지원하지 않습니다");
     return;
   };
-
   return tempLocation;
 }
 

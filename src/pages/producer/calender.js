@@ -1,8 +1,8 @@
 import React from "react";
-import MainWrap from "../layout/mainwrap/mainWrap";
-import SubWrap from "../layout/subwrap/subWrap";
-import SubHeader from "../components/page-header/sub-header.js";
-import CalenderComponent from "../components/calender-main/calenderComponent";
+import MainWrap from "../../layout/mainwrap/mainWrap";
+import SubWrap from "../../layout/subwrap/subWrap";
+import SubHeader from "../../components/common/page-header/sub-header.js";
+import CalenderComponent from "../../components/common/calender-main/calenderComponent";
 import Stack from "@mui/material/Stack";
 const Calender = () => {
   return (

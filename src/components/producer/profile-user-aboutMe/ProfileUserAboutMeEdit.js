@@ -8,7 +8,7 @@ import {
   Box,
   Typography,
 } from "@mui/material";
-import SubWrap from "../../layout/subwrap/subWrap";
+import SubWrap from "../../../layout/subwrap/subWrap";
 import Divider from "@mui/material/Divider";
 import axios from "axios";
 import { useState, useEffect, useRef } from "react";

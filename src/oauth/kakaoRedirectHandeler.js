@@ -11,15 +11,10 @@ export default function KakaoRedirectHandeler() {
   useEffect(() => {
     (async () => {
       try {
-        const res = await axios.get(
-          `http://construct.agig.co.kr/construct/user/KakaoLogin.do?code=${code}`
+        const res = await axios.get( 
+          `http://localhost:8080/construct/user/KakaoLogin.do?code=${code}`
         );
         let rtnData = res.data;
-
-        // window.localStorage.setItem(
-        //   "userInfo",
-        //   JSON.stringify(rtnData.userProfile)
-        // );
 
         if (rtnData.accountYn == "N") {
           if (

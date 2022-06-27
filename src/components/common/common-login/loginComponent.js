@@ -9,7 +9,7 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import loginUserInfo from "../../data/loginUserInfo";
+import loginUserInfo from "../../../data/loginUserInfo";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 import { Paper } from "@mui/material";

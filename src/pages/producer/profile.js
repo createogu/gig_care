@@ -1,14 +1,14 @@
 import React from "react";
-import SubHeader from "../components/page-header/sub-header.js";
-import ProfileUserInfo from "../components/profile-user-info/profileUserInfo";
-import ProfileUserCareer from "../components/profile-user-career/profileUserCareer";
-import ProfileUserAboutMe from "../components/profile-user-aboutMe/profileUserAboutMe";
-import ProfileUserAddress from "../components/profile-user-address/profileUserAddress";
-import ProfileUserSkill from "../components/profile-user-skill/profileUserSkill.js";
-import CanWorkDayCalender from "../components/calender-main/calenderComponent";
+import SubHeader from "../../components/common/page-header/sub-header.js";
+import ProfileUserInfo from "../../components/producer/profile-user-info/profileUserInfo";
+import ProfileUserCareer from "../../components/producer/profile-user-career/profileUserCareer";
+import ProfileUserAboutMe from "../../components/producer/profile-user-aboutMe/profileUserAboutMe";
+import ProfileUserAddress from "../../components/producer/profile-user-address/profileUserAddress";
+import ProfileUserSkill from "../../components/producer/profile-user-skill/profileUserSkill.js";
+import CanWorkDayCalender from "../../components/common/calender-main/calenderComponent";
 import Grid from "@mui/material/Grid";
-import MainWrap from "../layout/mainwrap/mainWrap";
-import SubWrap from "../layout/subwrap/subWrap";
+import MainWrap from "../../layout/mainwrap/mainWrap";
+import SubWrap from "../../layout/subwrap/subWrap";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { useEffect } from "react";
 

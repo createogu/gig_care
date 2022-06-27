@@ -1,9 +1,10 @@
-import { Box, Button, Divider, Typography } from "@mui/material";
+import { Box, Button, Divider, Paper, Typography } from "@mui/material";
 import { useState, useEffect } from "react";
 import Autocomplete, { createFilterOptions } from "@mui/material/Autocomplete";
-import SubWrap from "../../layout/subwrap/subWrap";
+import SubWrap from "../../../layout/subwrap/subWrap";
 import TextField from "@mui/material/TextField";
-import * as common from "../../common/util/common";
+import Stack from "@mui/material/Stack";
+import * as common from "../../../util/common";
 import axios from "axios";
 
 const filter = createFilterOptions();
@@ -11,18 +12,23 @@ export default function ProfileUserAddressEdit(props) {
   let p_location = null;
 
   p_location = common.getLocation();
+
   const [addressNm, setAddressNm] = useState("");
+  const [addressMngNo, setaddressMngNo] = useState("");
   const [addressList, setAddressList] = useState([{}]);
 
   useEffect(() => {
     (async () => {
       try {
         const res = await axios.post(
-          `http://construct.agig.co.kr/construct/common/getAddressList.do`
+          `http://localhost:8080/construct/common/getAddressList.do`,
+          {
+            lat: "127.27953",
+            long: "36.47127",
+          }
         );
 
         let rtnData = res.data;
-        console.log(rtnData.addressList);
         if (rtnData != null) {
           setAddressList(rtnData.addressList);
         }
@@ -37,17 +43,16 @@ export default function ProfileUserAddressEdit(props) {
       <Autocomplete
         value={addressNm}
         onChange={(event, newValue) => {
+          console.log(newValue);
           if (typeof newValue === "string") {
-            setAddressNm({
-              title: newValue,
-            });
+            setAddressNm(newValue.addressNm);
+            setaddressMngNo(newValue.addressMngNo);
           } else if (newValue && newValue.inputValue) {
-            // Create a new value from the user input
-            setAddressNm({
-              title: newValue.inputValue,
-            });
+            setAddressNm(newValue.addressNm);
+            setaddressMngNo(newValue.addressMngNo);
           } else {
-            setAddressNm(newValue);
+            setAddressNm(newValue.addressNm);
+            setaddressMngNo(newValue.addressMngNo);
           }
         }}
         filterOptions={(options, params) => {
@@ -78,29 +83,55 @@ export default function ProfileUserAddressEdit(props) {
           }
           // Add "xxx" option created dynamically
           if (option.inputValue) {
-            return option.adressMngNo;
+            return option.addressMngNo;
           }
           // Regular option
-          return option.adressNm;
+          return option.addressNm;
         }}
-        renderOption={(props, option) => <li {...props}>{option.adressNm}</li>}
+        renderOption={(props, option) => <li {...props}>{option.addressNm}</li>}
         sx={{ width: "100%" }}
         freeSolo
-        renderInput={(params) => (
-          <TextField {...params}  />
-        )}
+        renderInput={(params) => <TextField {...params} />}
       />
+      <Divider />
+      <Stack justifyContent="center" direction="column" spacing={2}>
+        <Paper
+          variant="outlined"
+          square
+          elevation={2}
+          onClick={() => {
+            setAddressNm("11111");
+            setaddressMngNo("22222");
+          }}
+        >
+          서울특별시 종로구 청운효자동
+        </Paper>
+      </Stack>
+      {addressNm}
+      {addressMngNo}
       <Button
         type="submit"
         fullWidth
         variant="contained"
         sx={{ mt: 3, mb: 2 }}
         onClick={() => {
-          
+          (async () => {
+            try {
+              const res = await axios.post(
+                `http://localhost:8080/construct/user/modify.do`,
+                {
+                  userId: props.loginUserInfo.userId,
+                  addressCd: addressMngNo,
+                }
+              );
+            } catch (e) {
+              console.error(e);
+            }
+          })();
         }}
       >
         저장
-      </Button>      
+      </Button>
     </SubWrap>
   );
 }

@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Button, Avatar, Chip, Stack, Paper } from "@mui/material";
 import "./profileUserSkill.css";
-import CommSkillList from "../../data/skillsList";
+import CommSkillList from "../../../data/skillsList";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
@@ -10,7 +10,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Switch from "@mui/material/Switch";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import { useState, useEffect } from "react";
-import SubWrap from "../../layout/subwrap/subWrap";
+import SubWrap from "../../../layout/subwrap/subWrap";
 export default function ProfileUserSkillEdit(props) {
   const [isOpenDialog, setIsOpenDialog] = useState(false);
   const [SkillList, setSkillList] = useState(CommSkillList); //데이터

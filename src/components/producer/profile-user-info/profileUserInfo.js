@@ -53,9 +53,15 @@ export default function ProfileUserInfo(props) {
         <Table sx={{}} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell sx={{width : '30%'}} align="center">국적</TableCell>
-              <TableCell sx={{width : '30%'}} align="center">나이</TableCell>
-              <TableCell sx={{width : '30%'}} align="center">성별</TableCell>
+              <TableCell sx={{ width: "30%" }} align="center">
+                국적
+              </TableCell>
+              <TableCell sx={{ width: "30%" }} align="center">
+                나이
+              </TableCell>
+              <TableCell sx={{ width: "30%" }} align="center">
+                성별
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
