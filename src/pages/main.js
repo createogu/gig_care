@@ -1,22 +1,36 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { Routes, Route, Link, useNavigate, Outlet } from "react-router-dom";
-import ProducerHome from "./producer/home.js";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import HelperHome from "./helper/home.js";
 import ConsumerHome from "./consumer/home.js";
-import SignUp from "./producer/SignUp.js";
-import Profile from "./producer/profile.js";
-import Calender from "./producer/calender.js";
-import Contract from "./producer/contract.js";
-import Payment from "./producer/payment.js";
-import ProducerList from "./consumer/producerList.js"
+import SignUp from "./helper/SignUp.js";
+import Profile from "./helper/profile.js";
+import Calender from "./helper/calender.js";
+import Contract from "./helper/contract.js";
+import Payment from "./helper/payment.js";
+import HelperList from "./consumer/helperList.js";
+
 import NotFound from "./exceptioin/404.js";
 import KakaoRedirectHandeler from "../oauth/kakaoRedirectHandeler";
-import MainHeader from "../components/common/page-header/main-header.js";
-import SubHeader from "../components/common/page-header/sub-header.js";
-
 const Main = () => {
   const [loginUserInfo, setLoginUserInfo] = useState(null);
-
+  const theme = createTheme({
+    palette: {
+      primary: {
+        light: "#757ce8",
+        main: "#1f271b",
+        dark: "#002884",
+        contrastText: "#fff",
+      },
+      secondary: {
+        light: "#ff7961",
+        main: "#f44336",
+        dark: "#ba000d",
+        contrastText: "#000",
+      },
+    },
+  });
   useEffect(() => {
     console.log(window.localStorage.getItem("userInfo"));
     if (window.localStorage.getItem("userInfo") ?? false) {
@@ -27,53 +41,61 @@ const Main = () => {
 
   return (
     <div className="mainWrap">
-      <Routes>
-        <Route
-          path="/producer"
-          element={
-            <ProducerHome
-              menuGb={"producer"}
-              loginUserInfo={loginUserInfo}
-              setLoginUserInfo={setLoginUserInfo}
-            />
-          }
-        >
-          <Route path="SignUp" element={<SignUp />} />
-          <Route
-            path="profile"
-            element={<Profile loginUserInfo={loginUserInfo} />}
-          />
-          <Route
-            path="calender"
-            element={<Calender loginUserInfo={loginUserInfo} />}
-          />
-          <Route
-            path="contract"
-            element={<Contract loginUserInfo={loginUserInfo} />}
-          />
-          <Route
-            path="payment"
-            element={<Payment loginUserInfo={loginUserInfo} />}
-          />
+      <ThemeProvider theme={theme}>
+        <Routes>
           <Route
             path="oauth/callback/kakao"
-            element={<KakaoRedirectHandeler />}
+            element={<KakaoRedirectHandeler menuGb={"helper"} />}
           />
-        </Route>
-        <Route
-          path="/consumer"
-          element={
-            <ConsumerHome
-              menuGb={"consumer"}
-              loginUserInfo={loginUserInfo}
-              setLoginUserInfo={setLoginUserInfo}
+          <Route
+            path="/helper"
+            element={
+              <HelperHome
+                menuGb={"helper"}
+                loginUserInfo={loginUserInfo}
+                setLoginUserInfo={setLoginUserInfo}
+              />
+            }
+          >
+            <Route path="SignUp" element={<SignUp />} />
+            <Route
+              path="profile"
+              element={
+                <Profile
+                  loginUserInfo={loginUserInfo}
+                  isEditable={true}
+                  title="프로필 관리"
+                />
+              }
             />
-          }
-        >
-          <Route path="producerList" element={<ProducerList />} />
-        </Route>
-        <Route path="*" element={<NotFound />}></Route>
-      </Routes>
+            <Route
+              path="calender"
+              element={<Calender loginUserInfo={loginUserInfo} />}
+            />
+            <Route
+              path="contract"
+              element={<Contract loginUserInfo={loginUserInfo} />}
+            />
+            <Route
+              path="payment"
+              element={<Payment loginUserInfo={loginUserInfo} />}
+            />
+          </Route>
+          <Route
+            path="/consumer"
+            element={
+              <ConsumerHome
+                menuGb={"consumer"}
+                loginUserInfo={loginUserInfo}
+                setLoginUserInfo={setLoginUserInfo}
+              />
+            }
+          >
+            <Route path="helperList" element={<HelperList  />} />
+          </Route>
+          <Route path="*" element={<NotFound />}></Route>
+        </Routes>
+      </ThemeProvider>
     </div>
   );
 };

@@ -8,13 +8,13 @@ import {
   Box,
   Typography,
 } from "@mui/material";
-import SubWrap from "../../../layout/subwrap/subWrap";
+import SubWrap from "../../../../layout/subwrap/subWrap";
 import Divider from "@mui/material/Divider";
 import axios from "axios";
 import { useState, useEffect, useRef } from "react";
-import "./profileUserAboutMe.css";
+import "./AboutMe.css";
 
-export default function ProfileUserAboutMeEdit(props) {
+export default function AboutMeEdit(props) {
   const [AboutMe, setAboutMe] = useState("");
   const [rowCount, setRowCount] = useState(0);
   const [textLength, setTextLength] = useState(0);

@@ -1,0 +1,11 @@
+
+#profileChargeMain{
+    max-width : 600px
+}
+
+.CusotomChip{
+    margin: 5px;
+}
+.MuiChip-label{
+    padding-top: 4px;
+}

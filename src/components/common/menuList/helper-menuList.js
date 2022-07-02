@@ -6,7 +6,7 @@ import ReceiptLongIcon from "@mui/icons-material/ReceiptLong";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import HomeIcon from "@mui/icons-material/Home";
 
-const ProducerMenuList = (props) => {
+const helperMenuList = (props) => {
   return (
     <BottomNavigation maxWidth="x1" showLabels onChange={props.handleChange}>
       <BottomNavigationAction
@@ -34,4 +34,4 @@ const ProducerMenuList = (props) => {
   );
 };
 
-export default ProducerMenuList;
+export default helperMenuList;

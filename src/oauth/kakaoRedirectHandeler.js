@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-export default function KakaoRedirectHandeler() {
+export default function KakaoRedirectHandeler(props) {
   const [temp, SetTemp] = useState(null);
   const navigate = useNavigate();
   // 인가코드
@@ -25,12 +25,11 @@ export default function KakaoRedirectHandeler() {
             });
           }
         } else {
-          console.log(rtnData.userProfile);
           window.localStorage.setItem(
             "userInfo",
             JSON.stringify(rtnData.userProfile)
           );
-          navigate("/");
+          navigate("/"+props.menuGb);
         }
       } catch (e) {
         console.error(e);

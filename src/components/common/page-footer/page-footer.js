@@ -6,7 +6,7 @@ import Drawer from "@mui/material/Drawer";
 import Modal from "@mui/material/Modal";
 import Paper from "@mui/material/Paper";
 import KakaoLoginComponent from "../common-login/KakaoLoginComponent";
-import ProducerMenuList from "../menuList/producer-menuList";
+import HelperMenuList from "../menuList/helper-menuList";
 import ConsumerMenuList from "../menuList/consumer-menuList";
 import Confirm from "../../../moodules/comfirm/confirm";
 import { Routes, Route, Link, useNavigate } from "react-router-dom";
@@ -25,13 +25,13 @@ export default function PageFooter(props) {
       navigate("/" + props.menuGb + "/" + newValue);
     } else {
       // 로그인이 필요한 페이지 접근시
-      if (props.loginUserInfo != null) {
+      // if (props.loginUserInfo != null) {
         navigate("/" + props.menuGb + "/" + newValue);
-      } else {
-        navigate("/" + props.menuGb);
-        setIsConfirmOpen(true);
-        // setIsLoginModalOpen(true);
-      }
+      // } else {
+      //   navigate("/" + props.menuGb);
+      //   setIsConfirmOpen(true);
+      //   // setIsLoginModalOpen(true);
+      // }
     }
   };
 
@@ -40,9 +40,11 @@ export default function PageFooter(props) {
       sx={{ position: "fixed", bottom: 0, left: 0, right: 0 }}
       elevation={3}
     >
-      {props.menuGb == "producer" ? (
-        <ProducerMenuList handleChange={handleChange} />
+      {/* 공급자 메뉴 */}
+      {props.menuGb == "helper" ? (
+        <HelperMenuList handleChange={handleChange} />
       ) : null}
+      {/* 구매자 메뉴 */}
       {props.menuGb == "consumer" ? (
         <ConsumerMenuList handleChange={handleChange} />
       ) : null}

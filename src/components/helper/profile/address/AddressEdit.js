@@ -1,14 +1,14 @@
 import { Box, Button, Divider, Paper, Typography } from "@mui/material";
 import { useState, useEffect } from "react";
 import Autocomplete, { createFilterOptions } from "@mui/material/Autocomplete";
-import SubWrap from "../../../layout/subwrap/subWrap";
+import SubWrap from "../../../../layout/subwrap/subWrap";
 import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
-import * as common from "../../../util/common";
+import * as common from "../../../../util/common";
 import axios from "axios";
 
 const filter = createFilterOptions();
-export default function ProfileUserAddressEdit(props) {
+export default function AddressEdit(props) {
   let p_location = null;
 
   p_location = common.getLocation();
