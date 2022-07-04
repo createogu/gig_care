@@ -31,7 +31,7 @@ export default function PageFooter(props) {
       //   navigate("/" + props.menuGb);
       //   setIsConfirmOpen(true);
         // setIsLoginModalOpen(true);
-      }
+      // }
     }
   };
 
