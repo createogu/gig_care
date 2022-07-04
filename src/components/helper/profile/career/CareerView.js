@@ -17,7 +17,7 @@ export default function CareerView() {
   return (
     <Container maxWidth={"sm"}>
       <Card variant="outlined">
-        <CardHeader title="후기" />
+        <CardHeader title="이력" />
         <Divider variant="middle" />
         <CardContent>
           <Stack

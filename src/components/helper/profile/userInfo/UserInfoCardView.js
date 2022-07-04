@@ -7,6 +7,7 @@ import {
   CardActions,
   CardContent,
   Divider,
+  Rating,
   Container,
   Typography,
 } from "@mui/material";
@@ -60,9 +61,11 @@ export default function UserInfoCardView(props) {
         }}
       >
         <CardContent>
+          <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+          <Rating name="size-medium" defaultValue={4.5} precision={0.5} readOnly/>
+          </Typography>
           <Typography sx={{ fontSize: 16 }} color="text.secondary" gutterBottom>
-            {user.userNm} / {user.userGender} / {user.userAge} <ThumbUpIcon />{" "}
-            4.0
+            {user.userNm} / {user.userGender} / {user.userAge}
           </Typography>
           <Typography sx={{ fontSize: 16 }} color="text.secondary" gutterBottom>
             {user.addressNm}

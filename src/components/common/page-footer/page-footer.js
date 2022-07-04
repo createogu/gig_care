@@ -30,8 +30,8 @@ export default function PageFooter(props) {
       // } else {
       //   navigate("/" + props.menuGb);
       //   setIsConfirmOpen(true);
-      //   // setIsLoginModalOpen(true);
-      // }
+        // setIsLoginModalOpen(true);
+      }
     }
   };
 

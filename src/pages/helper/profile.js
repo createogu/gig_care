@@ -39,9 +39,11 @@ const Profile = (props) => {
           loginUserInfo={props.loginUserInfo}
           isEditable={props.isEditable}
         />
-        <SubWrap title={"근무가능일"}>
-          <CanWorkDayCalender loginUserInfo={props.loginUserInfo} />
-        </SubWrap>
+        {props.isEditable ? (
+          <SubWrap title={"근무가능일"}>
+            <CanWorkDayCalender loginUserInfo={props.loginUserInfo} />
+          </SubWrap>
+        ) : null}
       </Stack>
     </MainWrap>
   );
