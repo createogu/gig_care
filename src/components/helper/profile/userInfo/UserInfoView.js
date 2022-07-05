@@ -34,7 +34,7 @@ export default function UserInfoView(props) {
 
   return (
     <Container maxWidth={"sm"}>
-      <Card variant="outlined">
+      <Card variant="none">
         <CardContent>
           <Box
             sx={{

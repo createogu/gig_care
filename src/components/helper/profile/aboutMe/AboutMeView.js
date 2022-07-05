@@ -24,12 +24,14 @@ export default function AboutMeView(props) {
   }
   return (
     <Container maxWidth={"sm"}>
-      <Card variant="outlined">
+      <Card variant="none">
         <CardHeader title="자기소개" />
         <Divider variant="middle" />
         <CardContent>
           <Typography variant="body1" whiteSpace={"pre-wrap"}>
-            {myAboutMe}
+            안녕하세요 오민우입니다.
+            열심히하겠습니다.
+            {/* {myAboutMe} */}
           </Typography>
         </CardContent>
         {props.isEditable ? (

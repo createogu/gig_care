@@ -1,123 +1,31 @@
 import * as React from "react";
-import {
-  Avatar,
-  Box,
-  Button,
-  Card,
-  CardHeader,
-  CardActions,
-  CardContent,
-  Divider,
-  Stack,
-  Paper,
-  Container,
-  Typography,
-} from "@mui/material";
-import PropTypes from "prop-types";
-import { Global } from "@emotion/react";
-import { styled } from "@mui/material/styles";
-import CssBaseline from "@mui/material/CssBaseline";
-import { grey } from "@mui/material/colors";
-import SwipeableDrawer from "@mui/material/SwipeableDrawer";
+import { Button, Typography } from "@mui/material";
+import Accordion from "@mui/material/Accordion";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import SearchFilter from "./SearchFilter.js";
 
-const drawerBleeding = 110;
-
-const Root = styled("div")(({ theme }) => ({
-  height: "100%",
-  backgroundColor:
-    theme.palette.mode === "light"
-      ? grey[100]
-      : theme.palette.background.default,
-}));
-
-const StyledBox = styled(Box)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === "light" ? "#fff" : grey[800],
-}));
-
-function SearchBar(props) {
-  const { window } = props;
-  const [open, setOpen] = React.useState(false);
-
-  const toggleDrawer = (newOpen) => () => {
-    setOpen(newOpen);
-  };
-
-  // This is used only for the example
-  const container =
-    window !== undefined ? () => window().document.body : undefined;
-
+export default function SearchBar(props) {
   return (
-    <Root>
-      <Container maxWidth={"x1"}>
-        <Paper sx={{ display: "flex", alignItems: "flex-end", height: "50px" }}>
+    <div>
+      <Accordion expanded={props.isOpenSearchBar}>
+        <AccordionSummary aria-controls="panel1a-content" id="panel1a-header">
           <Button
             variant="contained"
             disableElevation
             fullWidth
             onClick={() => {
-              setOpen(true);
+              props.setIsOpenSearchBar(true)
             }}
           >
-            검색조건
+            조건검색(작업중)
           </Button>
-        </Paper>
-      </Container>
-      <CssBaseline />
-
-      <Global
-        styles={{
-          ".MuiDrawer-root > .MuiPaper-root": {
-            height: `calc(80% - ${drawerBleeding}px)`,
-            overflow: "visible",
-          },
-        }}
-      />
-      <SwipeableDrawer
-        container={container}
-        anchor="bottom"
-        open={open}
-        onClose={toggleDrawer(false)}
-        onOpen={toggleDrawer(true)}
-        swipeAreaWidth={drawerBleeding}
-        disableSwipeToOpen={false}
-        ModalProps={{
-          keepMounted: true,
-        }}
-      >
-        <StyledBox
-          sx={{
-            position: "absolute",
-            top: -drawerBleeding,
-            borderTopLeftRadius: 8,
-            borderTopRightRadius: 8,
-            visibility: "visible",
-            right: 0,
-            left: 0,
-          }}
-        ></StyledBox>
-
-        <StyledBox
-          sx={{
-            px: 2,
-            pb: 2,
-            height: "100%",
-            overflow: "auto",
-          }}
-        >
-          <SearchFilter />
-        </StyledBox>
-      </SwipeableDrawer>
-    </Root>
+        </AccordionSummary>
+        <AccordionDetails>
+          <SearchFilter setIsOpenSearchBar={props.setIsOpenSearchBar} />
+        </AccordionDetails>
+      </Accordion>
+    </div>
   );
 }
-
-SearchBar.propTypes = {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
-   */
-  window: PropTypes.func,
-};
-
-export default SearchBar;

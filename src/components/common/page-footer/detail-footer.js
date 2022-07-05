@@ -26,8 +26,8 @@ export default function DetailFooter(props) {
   let navigate = useNavigate();
 
   return (
-    <Container
-      maxWidth="sm"
+    <Box
+      Width="100%"
       sx={{ position: "fixed", bottom: 5, left: 5, right: 5 }}
       elevation={3}
     >
@@ -36,6 +36,6 @@ export default function DetailFooter(props) {
           계약하기
         </Button>
       </BottomNavigation>
-    </Container>
+    </Box>
   );
 }

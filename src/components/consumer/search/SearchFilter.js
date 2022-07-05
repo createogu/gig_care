@@ -3,11 +3,15 @@ import { useState } from "react";
 import {
   Box,
   Button,
+  Stack,
   TextField,
+  Grid,
   Paper,
+  Divider,
   Container,
   Typography,
 } from "@mui/material";
+
 import Modal from "@mui/material/Modal";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
@@ -57,38 +61,42 @@ export default function SearchFilter(props) {
 
   return (
     <Container maxWidth={"sm"}>
-      <div>
+      <Stack alignItems="left" direction={"column"} spacing={1}>
         <FormLabel id="demo-row-radio-buttons-group-label">돌봄대상</FormLabel>
-        <RadioGroup
-          row
-          aria-labelledby="demo-row-radio-buttons-group-label"
-          name="careType"
-          onChange={(e) => {
-            setCareType(e.target.value);
-          }}
-        >
-          <FormControlLabel value="01" control={<Radio />} label="환자" />
-          <FormControlLabel value="02" control={<Radio />} label="애완동물" />
-          <FormControlLabel value="03" control={<Radio />} label="가사" />
-          <FormControlLabel value="04" control={<Radio />} label="육아" />
-        </RadioGroup>
-      </div>
-      <div>
+        <Box>
+          <RadioGroup
+            row
+            aria-labelledby="demo-row-radio-buttons-group-label"
+            name="careType"
+            onChange={(e) => {
+              setCareType(e.target.value);
+            }}
+          >
+            <FormControlLabel
+              value="01"
+              checked={true}
+              control={<Radio />}
+              label="환자"
+            />
+            <FormControlLabel value="02" control={<Radio />} label="애완동물" />
+            <FormControlLabel value="03" control={<Radio />} label="가사" />
+            <FormControlLabel value="04" control={<Radio />} label="육아" />
+          </RadioGroup>
+        </Box>
         <FormLabel id="demo-row-radio-buttons-group-label">지역</FormLabel>
-        <AddressInput
-          setAddressNm={setAddressNm}
-          setaddressMngNo={setaddressMngNo}
-        />
-      </div>
-      <div>
+        <Box>
+          <AddressInput
+            setAddressNm={setAddressNm}
+            setaddressMngNo={setaddressMngNo}
+          />
+        </Box>
         <FormLabel id="demo-row-radio-buttons-group-label">필요기간</FormLabel>
-        {dateState.startDate}
         <Box>
           <TextField
             id="outlined-read-only-input"
             label="시작일"
             value={srtDate}
-            sx={{ width: "200px" }}
+            sx={{ width: "180px" }}
             InputProps={{
               readOnly: true,
             }}
@@ -101,7 +109,7 @@ export default function SearchFilter(props) {
             id="outlined-read-only-input"
             label="종료일"
             value={endDate}
-            sx={{ width: "200px" }}
+            sx={{ width: "180px" }}
             InputProps={{
               readOnly: true,
             }}
@@ -110,27 +118,29 @@ export default function SearchFilter(props) {
             }}
           />
         </Box>
-      </div>
-      <div>
-        {gender}
         <FormLabel id="demo-row-radio-buttons-group-label">성별</FormLabel>
-        <RadioGroup
-          row
-          aria-labelledby="demo-row-radio-buttons-group-label"
-          name="gender"
-          onChange={(e) => {
-            setGender(e.target.value);
-          }}
-        >
-          <FormControlLabel value="01" control={<Radio />} label="남자" />
-          <FormControlLabel value="02" control={<Radio />} label="여자" />
-        </RadioGroup>
-      </div>
-      <Box sx={{ position: "fixed", bottom: 5, left: 10, right: 10 }}>
-        <Button variant="outlined">초기화</Button>
+        <Box>
+          <RadioGroup
+            row
+            aria-labelledby="demo-row-radio-buttons-group-label"
+            name="gender"
+            onChange={(e) => {
+              setGender(e.target.value);
+            }}
+          >
+            <FormControlLabel value="01" control={<Radio />} label="남자" />
+            <FormControlLabel value="02" control={<Radio />} label="여자" />
+          </RadioGroup>
+        </Box>
+      </Stack>
+      <Box>
+        {/* <Button variant="outlined">초기화</Button> */}
         <Button
           variant="contained"
-          sx={{ position: "fixed", bottom: 5, left: 90, right: 5 }}
+          fullWidth
+          onClick={() => {
+            props.setIsOpenSearchBar(false);
+          }}
         >
           적용하기
         </Button>

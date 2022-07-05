@@ -28,7 +28,7 @@ export default function SkillView(props) {
 
   return (
     <Container maxWidth={"sm"}>
-      <Card variant="outlined">
+      <Card variant="none">
         <CardHeader title="돌봄대상" />
         <Divider variant="middle" />
         <CardContent>

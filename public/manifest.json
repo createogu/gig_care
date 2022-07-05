@@ -1,6 +1,6 @@
 {
-  "short_name": "Gig-간병",
-  "name": "Gig-간병",
+  "short_name": "무료직업소개",
+  "name": "무료직업소개",
   "icons": [
     {
       "src": "./favicomatic/apple-touch-icon-57x57.png",
@@ -39,7 +39,7 @@
       "purpose": "any maskable"
     }
   ],
-  "start_url": "/helper",
+  "start_url": "/consumer",
   "display": "standalone",
   "theme_color": "#aac0af",
   "background_color": "#031230"

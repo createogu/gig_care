@@ -1,6 +1,6 @@
 import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
-import FaceIcon from "@mui/icons-material/Face";
+import HomeIcon from "@mui/icons-material/Home";
 
 const ConsumerMenuList = (props) => {
   return (
@@ -8,7 +8,7 @@ const ConsumerMenuList = (props) => {
       <BottomNavigationAction
         label="검색"
         value="helperList"
-        icon={<FaceIcon />}
+        icon={<HomeIcon />}
       />
     </BottomNavigation>
   );

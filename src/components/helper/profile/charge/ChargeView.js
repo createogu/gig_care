@@ -24,7 +24,7 @@ export default function ChargeView(props) {
 
   return (
     <Container maxWidth={"sm"}>
-      <Card variant="outlined">
+      <Card variant="none">
         <CardHeader title="비용설정" />
         <Divider variant="middle" />
         <CardContent></CardContent>

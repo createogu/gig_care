@@ -10,14 +10,15 @@ import {
   Divider,
   Stack,
   Container,
+  Rating,
   Typography,
 } from "@mui/material";
 import "./Career.css";
-export default function CareerView() {
+export default function CareerView(props) {
   return (
     <Container maxWidth={"sm"}>
-      <Card variant="outlined">
-        <CardHeader title="이력" />
+      <Card variant="none">
+        <CardHeader title="후기보기" />
         <Divider variant="middle" />
         <CardContent>
           <Stack
@@ -26,19 +27,21 @@ export default function CareerView() {
             divider={<Divider orientation="vertical" flexItem />}
             spacing={1}
           >
-            <div> 29일 12시간</div>
+            <Rating defaultValue={2} />(3)
           </Stack>
         </CardContent>
-        <CardActions>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-          >
-            수정
-          </Button>
-        </CardActions>
+        {props.isEditable ? (
+          <CardActions>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              수정
+            </Button>
+          </CardActions>
+        ) : null}
       </Card>
     </Container>
   );

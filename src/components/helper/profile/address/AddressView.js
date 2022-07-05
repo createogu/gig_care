@@ -24,7 +24,7 @@ export default function AddressView(props) {
 
   return (
     <Container maxWidth={"sm"}>
-      <Card variant="outlined">
+      <Card variant="none">
         <CardHeader title="내 주소" />
         <Divider variant="middle" />
         <CardContent>

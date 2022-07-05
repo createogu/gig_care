@@ -30,10 +30,26 @@ export default function AddressInput(props) {
           }
         );
 
-        let rtnData = res.data;
-        if (rtnData != null) {
-          setAddressList(rtnData.addressList);
-        }
+        // let rtnData = res.data;
+        // if (rtnData != null) {
+        //   setAddressList(rtnData.addressList);
+        // }else{
+          let tempAddressList = [
+            {addressMngNo : "3020052000", addressNm : "대전광역시 유성구 진잠동"},
+            {addressMngNo : "3020052600"	, addressNm : "대전광역시 유성구 학하동"},
+            {addressMngNo : "3020052700"	, addressNm : "대전광역시 유성구 상대동"},
+            {addressMngNo : "3020053000"	, addressNm : "대전광역시 유성구 온천1동"},
+            {addressMngNo : "3020054000"	, addressNm : "대전광역시 유성구 온천2동"},
+            {addressMngNo : "3020054600"	, addressNm : "대전광역시 유성구 노은1동"},
+            {addressMngNo : "3020054700"	, addressNm : "대전광역시 유성구 노은2동"},
+            {addressMngNo : "3020054800"	, addressNm : "대전광역시 유성구 노은3동"},
+            {addressMngNo : "3020055000"	, addressNm : "대전광역시 유성구 신성동"},
+            {addressMngNo : "3020057000"	, addressNm : "대전광역시 유성구 전민동"},
+            {addressMngNo : "3020058000"	, addressNm : "대전광역시 유성구 구즉동"},
+            {addressMngNo : "3020060000"	, addressNm : "대전광역시 유성구 관평동"}
+          ]
+          setAddressList(tempAddressList)
+        // }
       } catch (e) {
         console.error(e);
       }

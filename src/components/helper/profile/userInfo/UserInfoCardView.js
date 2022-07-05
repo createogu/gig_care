@@ -1,38 +1,27 @@
 import {
   Avatar,
   Box,
+  Stack,
   Button,
   Card,
   CardHeader,
   CardActions,
   CardContent,
   Divider,
-  Rating,
   Container,
   Typography,
 } from "@mui/material";
-import { useState } from "react";
-import { styled } from "@mui/material/styles";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import ThumbUpIcon from "@mui/icons-material/ThumbUp";
-import TableCell, { tableCellClasses } from "@mui/material/TableCell";
-import FullScreenDialog from "../../../../moodules/fullScreenDialog/fullScreenDialog.js";
-import HelperDetail from "../../../../pages/consumer/helperDetail.js";
-const StyledTableCell = styled(TableCell)(({ theme }) => ({
-  [`&.${tableCellClasses.body}`]: {
-    backgroundColor: "red",
-    color: theme.palette.common.white,
-    fontSize: 14,
-  },
-}));
+import MaleIcon from "@mui/icons-material/Male";
+import FemaleIcon from "@mui/icons-material/Female";
 
 export default function UserInfoCardView(props) {
-  const [isOpenDialog, setIsOpenDialog] = useState(false);
   let user = props.userInfo;
   if (user == null) {
     user = {
@@ -48,96 +37,71 @@ export default function UserInfoCardView(props) {
       payRateSecond: 30,
       payRateThird: 40,
       payRatefourth: 20,
-      thumnailImg: "",
+      thumnailImg:
+        "http://k.kakaocdn.net/dn/bbLJee/btrDoUvapgX/inrmBxgwKq9pwFITzTTx71/img_640x640.jpg",
     };
   }
 
   return (
-    <Container maxWidth={"sm"}>
-      <Card
-        variant="outlined"
-        onClick={() => {
-          setIsOpenDialog(true);
+    <Box
+      sx={{
+        p: 5,
+        width: "100%",
+        alignItems: "center",
+        display: "flex",
+        flexDirection: "column",
+        background: "linear-gradient(180deg, #61c9a8 45%, #ffffff 45%)",
+      }}
+    >
+      <Avatar
+        src={user.thumnailImg}
+        sx={{
+          border: "15px solid #eee",
+          height: 160,
+          mb: 2,
+          width: 160,
         }}
-      >
-        <CardContent>
-          <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-          <Rating name="size-medium" defaultValue={4.5} precision={0.5} readOnly/>
+      />
+      <Box>
+        <Stack
+          alignItems="left"
+          direction={"row"}
+          spacing={1}
+          divider={<Divider variant="middle" orientation="vertical" flexItem />}
+        >
+          <Typography sx={{ fontSize: 24 }} color="primary" fontWeight="bolder">
+            {user.userNm}
           </Typography>
-          <Typography sx={{ fontSize: 16 }} color="text.secondary" gutterBottom>
-            {user.userNm} / {user.userGender} / {user.userAge}
+          <Typography sx={{ fontSize: 16 }} color="secondery">
+            {user.userGender}
           </Typography>
-          <Typography sx={{ fontSize: 16 }} color="text.secondary" gutterBottom>
+          <Typography sx={{ fontSize: 16 }} color="secondery">
+            {user.userAge}
+          </Typography>
+        </Stack>
+      </Box>
+      <Box>
+        <Stack alignItems="center" direction={"column"} spacing={0}>
+          <Typography
+            sx={{ fontSize: 16, fontWeight: "bolder" }}
+            color="text.secondary"
+          >
             {user.addressNm}
           </Typography>
-          <Typography sx={{ fontSize: 16 }} color="text.secondary" gutterBottom>
-            최소기간 : {user.minPeriod}일 / 비용 : {user.cost} 원
+          <Typography
+            sx={{ fontSize: 16, fontWeight: "bolder" }}
+            color="text.secondary"
+          >
+            최소기간 : {user.minPeriod}일
           </Typography>
-          <TableContainer component={Paper}>
-            <Table sx={{}} aria-label="simple table">
-              <TableBody>
-                <TableRow>
-                  <TableCell
-                    sx={{
-                      width: "20%",
-                      backgroundColor: "red",
-                      color: "white",
-                      fontSize: 12,
-                    }}
-                    align="center"
-                  >
-                    착수(20%)
-                  </TableCell>
-                  <TableCell
-                    sx={{
-                      width: "40%",
-                      backgroundColor: "blue",
-                      color: "white",
-                      fontSize: 12,
-                    }}
-                    align="center"
-                  >
-                    중도(40%)
-                  </TableCell>
-                  <TableCell
-                    sx={{
-                      width: "30%",
-                      backgroundColor: "orange",
-                      color: "white",
-                      fontSize: 12,
-                    }}
-                    align="center"
-                  >
-                    잔금(30%)
-                  </TableCell>
-                  <TableCell
-                    sx={{
-                      width: "10%",
-                      backgroundColor: "green",
-                      color: "white",
-                      fontSize: 12,
-                    }}
-                    align="center"
-                  >
-                    하자(10%)
-                  </TableCell>
-                </TableRow>
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </CardContent>
-        {/* <CardActions>
-        <Button size="small">상세보기</Button>
-        <Button size="small">후기보기(13)</Button>
-      </CardActions> */}
-      </Card>
-      <FullScreenDialog
-        isOpenDialog={isOpenDialog}
-        setIsOpenDialog={setIsOpenDialog}
-        title={"도우미 상세화면"}
-      >
-        <HelperDetail />
-      </FullScreenDialog>
-    </Container>
+          <Typography
+            sx={{ fontSize: 16, fontWeight: "bolder" }}
+            color="text.secondary"
+          >
+            비용 : {user.cost} 원
+          </Typography>
+        </Stack>
+      </Box>
+    </Box>
   );
 }

@@ -5,7 +5,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import HelperHome from "./helper/home.js";
 import ConsumerHome from "./consumer/home.js";
 import SignUp from "./helper/SignUp.js";
-import Profile from "./helper/profile.js";
+import MyProfile from "./helper/myProfile.js";
 import Calender from "./helper/calender.js";
 import Contract from "./helper/contract.js";
 import Payment from "./helper/payment.js";
@@ -19,7 +19,7 @@ const Main = () => {
     palette: {
       primary: {
         light: "#757ce8",
-        main: "#1f271b",
+        main: "#61c9a8",
         dark: "#002884",
         contrastText: "#fff",
       },
@@ -61,7 +61,7 @@ const Main = () => {
             <Route
               path="profile"
               element={
-                <Profile
+                <MyProfile
                   loginUserInfo={loginUserInfo}
                   isEditable={true}
                   title="프로필 관리"
@@ -91,7 +91,7 @@ const Main = () => {
               />
             }
           >
-            <Route path="helperList" element={<HelperList  />} />
+            <Route path="helperList" element={<HelperList />} />
           </Route>
           <Route path="*" element={<NotFound />}></Route>
         </Routes>
