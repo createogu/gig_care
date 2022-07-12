@@ -62,7 +62,7 @@ export default function SearchFilter(props) {
   return (
     <Container maxWidth={"sm"}>
       <Stack alignItems="left" direction={"column"} spacing={1}>
-        <FormLabel id="demo-row-radio-buttons-group-label">돌봄대상</FormLabel>
+        {/* <FormLabel id="demo-row-radio-buttons-group-label">돌봄대상</FormLabel>
         <Box>
           <RadioGroup
             row
@@ -82,7 +82,7 @@ export default function SearchFilter(props) {
             <FormControlLabel value="03" control={<Radio />} label="가사" />
             <FormControlLabel value="04" control={<Radio />} label="육아" />
           </RadioGroup>
-        </Box>
+        </Box> */}
         <FormLabel id="demo-row-radio-buttons-group-label">지역</FormLabel>
         <Box>
           <AddressInput
@@ -96,7 +96,7 @@ export default function SearchFilter(props) {
             id="outlined-read-only-input"
             label="시작일"
             value={srtDate}
-            sx={{ width: "180px" }}
+            fullWidth
             InputProps={{
               readOnly: true,
             }}
@@ -104,12 +104,13 @@ export default function SearchFilter(props) {
               setIsDatePickerModalOpen(true);
             }}
           />
-          ~
+        </Box>
+        <Box>
           <TextField
             id="outlined-read-only-input"
             label="종료일"
             value={endDate}
-            sx={{ width: "180px" }}
+            fullWidth
             InputProps={{
               readOnly: true,
             }}

@@ -27,7 +27,7 @@ export default function UserInfoCardView(props) {
     user = {
       userId: "createogu@gmail.com",
       userNm: "오민우",
-      userAge: 32,
+      userAge: "30대",
       userGender: "남",
       addressNm: "세종특별시 대평동",
       hpNo: "010-7208-6332",
@@ -50,7 +50,7 @@ export default function UserInfoCardView(props) {
         alignItems: "center",
         display: "flex",
         flexDirection: "column",
-        background: "linear-gradient(180deg, #61c9a8 45%, #ffffff 45%)",
+        background: "linear-gradient(180deg, #61c9a8 35%, #ffffff 35%)",
       }}
     >
       <Avatar
@@ -72,10 +72,10 @@ export default function UserInfoCardView(props) {
           <Typography sx={{ fontSize: 24 }} color="primary" fontWeight="bolder">
             {user.userNm}
           </Typography>
-          <Typography sx={{ fontSize: 16 }} color="secondery">
+          <Typography sx={{ fontSize: 16, pt: 0.7 }} color="secondery">
             {user.userGender}
           </Typography>
-          <Typography sx={{ fontSize: 16 }} color="secondery">
+          <Typography sx={{ fontSize: 16, pt: 0.7 }} color="secondery">
             {user.userAge}
           </Typography>
         </Stack>

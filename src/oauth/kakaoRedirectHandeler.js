@@ -11,25 +11,28 @@ export default function KakaoRedirectHandeler(props) {
   useEffect(() => {
     (async () => {
       try {
-        const res = await axios.get( 
-          `http://localhost:8080/construct/user/KakaoLogin.do?code=${code}`
+        const res = await axios.get(
+          process.env.REACT_APP_BACK_BASE_URL +
+            `/construct/user/KakaoLogin.do?code=${code}`
         );
         let rtnData = res.data;
-
-        if (rtnData.accountYn == "N") {
-          if (
-            window.confirm("사용자 정보가 없습니다. 회원가입 하시겠습니까?")
-          ) {
-            navigate("/SignUp", {
-              state: { userProfile: rtnData.userProfile },
-            });
+        if (rtnData != null) {
+          if (rtnData.accountYn == "N") {
+            if (
+              window.confirm("사용자 정보가 없습니다. 회원가입 하시겠습니까?")
+            ) {
+              navigate("/helpler/SignUp", {
+                state: { userProfile: rtnData.userProfile },
+              });
+            }
+          } else {
+            window.localStorage.setItem(
+              "userInfo",
+              JSON.stringify(rtnData.userProfile)
+            );
+            alert(rtnData.userProfile.userNm + "님 반갑습니다.");
+            navigate("/" + props.menuGb);
           }
-        } else {
-          window.localStorage.setItem(
-            "userInfo",
-            JSON.stringify(rtnData.userProfile)
-          );
-          navigate("/"+props.menuGb);
         }
       } catch (e) {
         console.error(e);

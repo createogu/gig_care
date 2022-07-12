@@ -1,6 +1,6 @@
 import React from "react";
 import SubHeader from "../../components/common/page-header/sub-header.js";
-import UserInfo from "../../components/helper/profile/userInfo/UserInfoView.js";
+import UserInfo from "../../components/helper/profile/userInfo/UserInfoCardView.js";
 import Career from "../../components/helper/profile/career/CareerView.js";
 import AboutMe from "../../components/helper/profile/aboutMe/AboutMeView.js";
 import Address from "../../components/helper/profile/address/AddressView.js";
@@ -10,43 +10,62 @@ import CanWorkDayCalender from "../../components/common/calender-main/calenderCo
 import Stack from "@mui/material/Stack";
 import MainWrap from "../../layout/mainwrap/mainWrap";
 import SubWrap from "../../layout/subwrap/subWrap";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
-const myProfile = (props) => {
+export default function MyProfile(props) {
+  const [myProfile, setMyProfile] = useState(null);
+  const [isEditable, setIsEditable] = useState(false);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const res = await axios.post(
+          process.env.REACT_APP_BACK_BASE_URL + "/helper/getMyProfile.do",
+          {
+            userId: props.loginUserInfo.userId,
+          }
+        );
+        console.log(res);
+        let rtnData = res.data;
+        if (rtnData != null) {
+          setMyProfile(rtnData);
+          setIsEditable(true)
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    })();
+  }, []);
+  
   return (
     <MainWrap>
-      {props.isEditable ? <SubHeader title={props.title} /> : null}
-
-      <Stack alignItems="center" spacing={1}>
-        <UserInfo loginUserInfo={props.loginUserInfo} />
-        <Address
-          loginUserInfo={props.loginUserInfo}
-          isEditable={props.isEditable}
-        />
-        <AboutMe
-          loginUserInfo={props.loginUserInfo}
-          isEditable={props.isEditable}
-        />
-        <Charge
-          loginUserInfo={props.loginUserInfo}
-          isEditable={props.isEditable}
-        />
-        <Skill
-          loginUserInfo={props.loginUserInfo}
-          isEditable={props.isEditable}
-        />
-        <Career
-          loginUserInfo={props.loginUserInfo}
-          isEditable={props.isEditable}
-        />
-        {props.isEditable ? (
-          <SubWrap title={"근무가능일"}>
-            <CanWorkDayCalender loginUserInfo={props.loginUserInfo} />
-          </SubWrap>
-        ) : null}
-      </Stack>
+      {myProfile && (
+        <Stack alignItems="center" spacing={1} sx={{ pb: 7 }}>
+          <UserInfo loginUserInfo={props.loginUserInfo} />
+          <Address
+            loginUserInfo={props.loginUserInfo}
+            isEditable={isEditable}
+          />
+          <AboutMe
+            loginUserInfo={props.loginUserInfo}
+            isEditable={isEditable}
+          />
+          <Charge myCharge={myProfile.charge} isEditable={isEditable} />
+          <Skill
+            loginUserInfo={props.loginUserInfo}
+            isEditable={isEditable}
+          />
+          <Career
+            loginUserInfo={props.loginUserInfo}
+            isEditable={isEditable}
+          />
+          <CanWorkDayCalender
+            loginUserInfo={props.loginUserInfo}
+            isEditable={isEditable}
+          />
+        </Stack>
+      )}
     </MainWrap>
   );
-};
-
-export default myProfile;
+}

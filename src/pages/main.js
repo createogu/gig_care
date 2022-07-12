@@ -38,14 +38,24 @@ const Main = () => {
       setLoginUserInfo(userInfo);
     }
   }, []);
-
+ 
   return (
     <div className="mainWrap">
       <ThemeProvider theme={theme}>
         <Routes>
           <Route
+            path="/"
+            element={
+              <ConsumerHome
+                menuGb={"consumer"}
+                loginUserInfo={loginUserInfo}
+                setLoginUserInfo={setLoginUserInfo}
+              />
+            }
+          ></Route>
+          <Route
             path="oauth/callback/kakao"
-            element={<KakaoRedirectHandeler menuGb={"helper"} />}
+            element={<KakaoRedirectHandeler menuGb={"consumer"} />}
           />
           <Route
             path="/helper"

@@ -8,7 +8,11 @@ export default function FullScreenDialog(props) {
   return (
     <div>
       <Dialog open={props.isOpenDialog} fullScreen onClose={handleClose}>
-        <Dialogheader title={props.title} setIsOpenDialog={props.setIsOpenDialog}/>{props.children}
+        <Dialogheader
+          title={props.title}
+          setIsOpenDialog={props.setIsOpenDialog}
+        />
+        {props.children}
       </Dialog>
     </div>
   );

@@ -36,7 +36,7 @@ export default function AboutMeEdit(props) {
     (async () => {
       try {
         const res = await axios.post(
-          "http://construct.agig.co.kr/construct/user/modify.do",
+          process.env.REACT_APP_BACK_BASE_URL+"/construct/user/modify.do",
           {
             userId: props.loginUserInfo.userId,
             aboutMe: AboutMe,

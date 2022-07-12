@@ -25,13 +25,12 @@ export default function PageFooter(props) {
       navigate("/" + props.menuGb + "/" + newValue);
     } else {
       // 로그인이 필요한 페이지 접근시
-      // if (props.loginUserInfo != null) {
+      if (props.loginUserInfo != null) {
         navigate("/" + props.menuGb + "/" + newValue);
-      // } else {
-      //   navigate("/" + props.menuGb);
-      //   setIsConfirmOpen(true);
-        // setIsLoginModalOpen(true);
-      // }
+      } else {
+        navigate("/" + props.menuGb);
+        setIsConfirmOpen(true);
+      }
     }
   };
 

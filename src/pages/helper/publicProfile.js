@@ -19,7 +19,7 @@ const publicProfile = (props) => {
 
       <Stack alignItems="center" spacing={1} sx={{ pb: 7, overflow: "hidden" }}>
         <UserInfoCardView loginUserInfo={props.loginUserInfo} />
-
+        
         <AboutMe
           loginUserInfo={props.loginUserInfo}
           isEditable={props.isEditable}

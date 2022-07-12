@@ -3,115 +3,138 @@ import {
   Button,
   Divider,
   Paper,
+  InputBase,
+  IconButton,
   Typography,
   TextField,
 } from "@mui/material";
 import { useState, useEffect } from "react";
 import Autocomplete, { createFilterOptions } from "@mui/material/Autocomplete";
-import * as common from "../../../util/common.js";
+import SearchIcon from "@mui/icons-material/Search";
+import LocationSearchingIcon from "@mui/icons-material/LocationSearching";
+import useWatchLocation from "../../../utils/hooks/useCurrentLocation.js";
 import axios from "axios";
-
-const filter = createFilterOptions();
+const geolocationOptions = {
+  enableHighAccuracy: true,
+  timeout: 1000 * 60 * 1, // 1 min (1000 ms * 60 sec * 1 minute = 60 000ms)
+  maximumAge: 1000 * 3600 * 24, // 24 hour
+};
 export default function AddressInput(props) {
-  let p_location = null;
-
-  p_location = common.getLocation();
-
+  const [searchType, setSearchType] = useState();
   const [addressList, setAddressList] = useState([{}]);
-
+  const [searchAddressNm, setSearchAddressNm] = useState();
+  const { location } = useWatchLocation(geolocationOptions);
+  const timer = null;
   useEffect(() => {
     (async () => {
       try {
+        console.log(searchAddressNm);
         const res = await axios.post(
-          `http://localhost:8080/construct/common/getAddressList.do`,
+          process.env.REACT_APP_BACK_BASE_URL +
+            "/construct/common/getSearchTextBaseAddressList.do",
           {
-            lat: "127.27953",
-            long: "36.47127",
+            address_nm: searchAddressNm,
           }
         );
 
-        // let rtnData = res.data;
-        // if (rtnData != null) {
-        //   setAddressList(rtnData.addressList);
-        // }else{
-          let tempAddressList = [
-            {addressMngNo : "3020052000", addressNm : "대전광역시 유성구 진잠동"},
-            {addressMngNo : "3020052600"	, addressNm : "대전광역시 유성구 학하동"},
-            {addressMngNo : "3020052700"	, addressNm : "대전광역시 유성구 상대동"},
-            {addressMngNo : "3020053000"	, addressNm : "대전광역시 유성구 온천1동"},
-            {addressMngNo : "3020054000"	, addressNm : "대전광역시 유성구 온천2동"},
-            {addressMngNo : "3020054600"	, addressNm : "대전광역시 유성구 노은1동"},
-            {addressMngNo : "3020054700"	, addressNm : "대전광역시 유성구 노은2동"},
-            {addressMngNo : "3020054800"	, addressNm : "대전광역시 유성구 노은3동"},
-            {addressMngNo : "3020055000"	, addressNm : "대전광역시 유성구 신성동"},
-            {addressMngNo : "3020057000"	, addressNm : "대전광역시 유성구 전민동"},
-            {addressMngNo : "3020058000"	, addressNm : "대전광역시 유성구 구즉동"},
-            {addressMngNo : "3020060000"	, addressNm : "대전광역시 유성구 관평동"}
-          ]
-          setAddressList(tempAddressList)
-        // }
+        let rtnData = res.data;
+        if (rtnData != null) {
+          setSearchType("searchAdressNm");
+          setAddressList(rtnData.commAddressList);
+          console.log(rtnData.commAddressList);
+        }
       } catch (e) {
         console.error(e);
       }
     })();
-  }, []);
+  }, [searchAddressNm]);
 
   return (
-    <Box>
-      <Autocomplete
-        value={props.addressNm}
-        onChange={(event, newValue) => {
-          console.log(newValue);
-          if (typeof newValue === "string") {
-            props.setAddressNm(newValue.addressNm);
-            props.setaddressMngNo(newValue.addressMngNo);
-          } else if (newValue && newValue.inputValue) {
-            props.setAddressNm(newValue.addressNm);
-            props.setaddressMngNo(newValue.addressMngNo);
-          } else {
-            props.setAddressNm(newValue.addressNm);
-            props.setaddressMngNo(newValue.addressMngNo);
+    <Paper elevation={2}>
+      <IconButton type="submit" sx={{ p: 2 }} aria-label="search">
+        <SearchIcon />
+      </IconButton>
+      <InputBase
+        sx={{ ml: 1, mb: 2, width: 300 }}
+        placeholder="동,읍,면으로 주소를 검색해주세요."
+        onChange={(e) => {
+          clearTimeout(timer);
+          if (e.target.value.length > 1) {
+            timer = setTimeout(function () {
+              setSearchAddressNm(e.target.value);
+            }, 2000);
           }
         }}
-        filterOptions={(options, params) => {
-          const filtered = filter(options, params);
-
-          const { inputValue } = params;
-          const isExisting = options.some(
-            (option) => inputValue === option.title
-          );
-          if (inputValue !== "" && !isExisting) {
-            filtered.push({
-              inputValue,
-              title: `Add "${inputValue}"`,
-            });
-          }
-
-          return filtered;
-        }}
-        selectOnFocus
-        clearOnBlur
-        handleHomeEndKeys
-        id="free-solo-with-text-demo"
-        options={addressList}
-        getOptionLabel={(option) => {
-          // Value selected with enter, right from the input
-          if (typeof option === "string") {
-            return option;
-          }
-          // Add "xxx" option created dynamically
-          if (option.inputValue) {
-            return option.addressMngNo;
-          }
-          // Regular option
-          return option.addressNm;
-        }}
-        renderOption={(props, option) => <li {...props}>{option.addressNm}</li>}
-        sx={{ width: "100%" }}
-        freeSolo
-        renderInput={(params) => <TextField {...params} />}
       />
-      <Divider />
-    </Box>
+      <Button
+        type="submit"
+        variant="contained"
+        fullWidth
+        sx={{ mb: 2 }}
+        onClick={() => {
+          (async () => {
+            try {
+              console.log(location);
+              const res = await axios.post(
+                process.env.REACT_APP_BACK_BASE_URL +
+                  "/construct/common/getGpsBaseAddressList.do",
+                {
+                  lat: location.latitude,
+                  long: location.longitude,
+                }
+              );
+
+              let rtnData = res.data;
+              if (rtnData != null) {
+                setSearchType("gps");
+                setAddressList(rtnData.commAddressList);
+              }
+            } catch (e) {
+              console.error(e);
+            }
+          })();
+        }}
+      >
+        <LocationSearchingIcon />
+        <Typography sx={{ fontSize: 14, pl: 1 }}>현재 위치로 찾기</Typography>
+      </Button>
+      {addressList.length > 1 ? (
+        <Box>
+          {searchType == "gps" ? (
+            <Typography sx={{ fontSize: 14, pl: 2, pb: 2 }} color="black">
+              현 위치 주변
+            </Typography>
+          ) : (
+            <Typography sx={{ fontSize: 14, pl: 2, pb: 2 }} color="black">
+              '{searchAddressNm}' 검색결과
+            </Typography>
+          )}
+          {addressList.map((item, index) => {
+            return (
+              <Box sx={{ p: 1, pl: 2 }}>
+                <Typography
+                  sx={{ fontSize: 16, pb: 1 }}
+                  color="black"
+                  onClick={() => {
+                    props.setAddressNm(item.addressNm);
+                    props.setaddressMngNo(item.addressMngNo);
+                  }}
+                >
+                  {item.addressNm}
+                </Typography>
+                <Divider />
+              </Box>
+            );
+          })}
+        </Box>
+      ) : (
+        <Box sx={{ p: 1, pl: 2 }}>
+          <Typography sx={{ fontSize: 16, pb: 1 }} color="black">
+            검색 결과가 업습니다.
+          </Typography>
+          <Divider />
+        </Box>
+      )}
+    </Paper>
   );
 }

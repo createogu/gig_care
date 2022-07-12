@@ -1,101 +1,158 @@
 import * as React from "react";
-import { Button, Avatar, Chip, Stack, Paper } from "@mui/material";
+import {
+  Box,
+  Button,
+  Avatar,
+  Chip,
+  Stack,
+  Paper,
+  TextField,
+} from "@mui/material";
 import "./Charge.css";
-import CommChargeList from "../../../../data/skillsList";
-import Accordion from "@mui/material/Accordion";
-import AccordionSummary from "@mui/material/AccordionSummary";
-import AccordionDetails from "@mui/material/AccordionDetails";
-import Typography from "@mui/material/Typography";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import Switch from "@mui/material/Switch";
-import FormControlLabel from "@mui/material/FormControlLabel";
 import { useState, useEffect } from "react";
 import SubWrap from "../../../../layout/subwrap/subWrap";
+import InputAdornment from "@mui/material/InputAdornment";
+import axios from "axios";
 export default function ChargeEdit(props) {
   const [isOpenDialog, setIsOpenDialog] = useState(false);
-  const [ChargeList, setChargeList] = useState(CommChargeList); //데이터
+  const [minWorkDays, setMinWorkDays] = useState(props.myCharge.minWorkDays);
+  const [chargePerDay, setChargePerDay] = useState(props.myCharge.chargePerDay);
+  const [downPaymentRate, setDownPaymentRate] = useState(
+    props.myCharge.downPaymentRate
+  );
+  const [intermediatePaymentRate, setIntermediatePaymentRate] = useState(
+    props.myCharge.intermediatePaymentRate
+  );
+  const [remainderPaymentRate, setRemainderPaymentRate] = useState(
+    props.myCharge.remainderPaymentRate
+  );
+  const [defectPaymentRate, setDefectPaymentRate] = useState(
+    props.myCharge.defectPaymentRate
+  );
+
   function saveMyCharge() {
-    setIsOpenDialog(true);
-    console.log(props.myCharges);
+    (async () => {
+      try {
+        const res = await axios.post(
+          process.env.REACT_APP_BACK_BASE_URL + "/helper/modifyCharge.do",
+          {
+            userId: 8,
+            minWorkDays: minWorkDays,
+            chargePerDay: chargePerDay,
+            downPaymentRate: downPaymentRate,
+            intermediatePaymentRate: intermediatePaymentRate,
+            remainderPaymentRate: remainderPaymentRate,
+            defectPaymentRate: defectPaymentRate,
+          }
+        );
+
+        let rtnMsg = res.data.rtnMsg;
+        if (rtnMsg) {
+          props.setIsOpenDialog(false);
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    })();
   }
 
-  useEffect(() => {
-    let tempChargeArray = [...ChargeList];
-    tempChargeArray.map((tempChargeItem, tempChargeIndex) => {
-      tempChargeItem.Charge_list.map((ChargeListItem, ChargeListIndex) => {
-        props.myCharges.map((myItem, myIndex) => {
-          if (ChargeListItem.comm_cd == myItem.comm_cd) {
-            tempChargeArray[tempChargeIndex].Charge_list[
-              ChargeListIndex
-            ].checked = true;
-          }
-        });
-      });
-    });
-    setChargeList(tempChargeArray);
-  }, [props.myCharges]);
-
   return (
-    <SubWrap subTitle={"보유한 간병기술을 선택해주세요."}>
-      기술 목록
+    <SubWrap subTitle={"비용을 설정해주세요."}>
       <Stack container spacing={1.5}>
-        {ChargeList.map((item, index) => {
-          return (
-            <div key={index}>
-              <Accordion>
-                <AccordionSummary
-                  expandIcon={<ExpandMoreIcon />}
-                  aria-controls="panel1a-content"
-                  id="panel1a-header"
-                >
-                  <Typography>{item.Charge_type_nm}</Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                  {item.Charge_list.map((ChargeItem, ChargeIndex) => {
-                    return (
-                      <div>
-                        <Paper elevation={3}>
-                          <FormControlLabel
-                            value="start"
-                            control={
-                              <Switch
-                                color="primary"
-                                defaultChecked={ChargeItem.checked}
-                              />
-                            }
-                            label={ChargeItem.comm_nm}
-                            labelPlacement="start"
-                            onChange={(e) => {
-                              if (!e.target.checked) {
-                                let tempMyCharges = [...props.myCharges];
-                                let currentIndex = tempMyCharges.findLastIndex(
-                                  (temp) => {
-                                    return temp.comm_cd == ChargeItem.comm_cd;
-                                  }
-                                );
-                                tempMyCharges.splice(currentIndex, 1);
-                                props.setMyCharges(tempMyCharges);
-
-                                let tempChargeList = [...ChargeList[ChargeIndex]];
-                                tempChargeList[ChargeIndex].checked = false;
-                                setChargeList(tempChargeList);
-                              } else {
-                                let tempArray = [...props.myCharges];
-                                tempArray.push(ChargeItem);
-                                props.setMyCharges(tempArray);
-                              }
-                            }}
-                          />
-                        </Paper>
-                      </div>
-                    );
-                  })}
-                </AccordionDetails>
-              </Accordion>
-            </div>
-          );
-        })}
+        <Box>
+          <TextField
+            label="최소 근무일수"
+            id="outlined-start-adornment"
+            sx={{ m: 1, width: "20ch" }}
+            type="number"
+            value={minWorkDays}
+            onChange={(e) => {
+              setMinWorkDays(e.target.value);
+            }}
+            InputP
+            InputProps={{
+              endAdornment: <InputAdornment position="end">일</InputAdornment>,
+            }}
+          />
+        </Box>
+        <Box>
+          <TextField
+            label="일 단가"
+            id="outlined-start-adornment"
+            sx={{ m: 1, width: "20ch" }}
+            value={chargePerDay}
+            type="number"
+            onChange={(e) => {
+              setChargePerDay(e.target.value);
+            }}
+            InputProps={{
+              endAdornment: <InputAdornment position="end">원</InputAdornment>,
+            }}
+          />
+        </Box>
+        <Box>
+          <TextField
+            label="계약금"
+            id="outlined-start-adornment"
+            sx={{ m: 1, width: "20ch" }}
+            value={downPaymentRate}
+            type="number"
+            helperText="100%를 초과 할 수 없습니다."
+            onChange={(e) => {
+              setDownPaymentRate(e.target.value);
+            }}
+            InputProps={{
+              endAdornment: <InputAdornment position="end">%</InputAdornment>,
+            }}
+          />
+        </Box>
+        <Box>
+          <TextField
+            label="중도금"
+            id="outlined-start-adornment"
+            sx={{ m: 1, width: "20ch" }}
+            value={intermediatePaymentRate}
+            type="number"
+            onChange={(e) => {
+              setIntermediatePaymentRate(e.target.value);
+            }}
+            InputProps={{
+              endAdornment: <InputAdornment position="end">%</InputAdornment>,
+            }}
+          />
+        </Box>
+        <Box>
+          <TextField
+            label="잔금"
+            id="outlined-start-adornment"
+            sx={{ m: 1, width: "20ch" }}
+            value={remainderPaymentRate}
+            type="number"
+            onChange={(e) => {
+              setRemainderPaymentRate(e.target.value);
+            }}
+            InputProps={{
+              endAdornment: <InputAdornment position="end">%</InputAdornment>,
+            }}
+          />
+        </Box>
+        <Box>
+          <TextField
+            label="하자"
+            id="outlined-start-adornment"
+            sx={{ m: 1, width: "20ch" }}
+            value={defectPaymentRate}
+            type="number"
+            onChange={(e) => {
+              setDefectPaymentRate(e.target.value);
+            }}
+            InputProps={{
+              endAdornment: <InputAdornment position="end">%</InputAdornment>,
+            }}
+          />
+        </Box>
       </Stack>
+
       <Button
         type="submit"
         fullWidth

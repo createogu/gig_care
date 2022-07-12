@@ -1,12 +1,19 @@
 import React, { useState, useEffect } from "react";
 import IconButton from "@mui/material/IconButton";
 import Paper from "@mui/material/Paper";
-import Typography from "@mui/material/Typography";
+import {
+  Card,
+  CardHeader,
+  CardActions,
+  CardContent,
+  Divider,
+  Container,
+  Typography,
+} from "@mui/material";
 import ArrowLeft from "@mui/icons-material/ArrowLeft";
 import ArrowRight from "@mui/icons-material/ArrowRight";
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
-import Divider from "@mui/material/Divider";
 import "./calenderComponent.css";
 
 export default function CalenderComponent() {
@@ -38,7 +45,7 @@ export default function CalenderComponent() {
       let tempObject = {
         date: date,
         workYn: false,
-        holidayYn: date.getDay() == 0 ? true : false,
+        holidayYn: date.getDay() == 0 || date.getDay() == 6 ? true : false,
       };
       copySelectedDateObjectArray.push(tempObject);
     }
@@ -66,67 +73,80 @@ export default function CalenderComponent() {
   // 다시 누르면 취소
 
   return (
-    <div>
-      선택된 근무 일수 : {selectedDateCount}
-      <Paper elevation={10} className="calender">
-        <div className="calenderTitle">
-          <IconButton
-            size="small"
-            className="arrowIcon"
-            onClick={onLeftArrowClick}
-          >
-            <ArrowLeft />
-          </IconButton>
-          <h2 style={{ textAlign: "center" }}>
-            {year} {monthName()}
-          </h2>
-          <IconButton
-            size="small"
-            className="arrowIcon"
-            onClick={onRightArrowClick}
-          >
-            <ArrowRight />
-          </IconButton>
-        </div>
-        <ul className="weekDays">
-          {["일", "월", "화", "수", "목", "금", "토"].map((day, i) => (
-            <li className="date" key={i}>
-              <Typography variant="h5">{day.toUpperCase()}</Typography>
-            </li>
-          ))}
-          <Divider variant="middle" />
-          {[...new Array(weekStartDay)].map((elem, i) => (
-            <li key={i} className="date"></li>
-          ))}
-          {selectedDateObjectArray.map((elem, i) => (
-            <li
-              key={i}
-              className="date"
-              onClick={() => {
-                let copySelectedDateObjectArray = [...selectedDateObjectArray];
-                copySelectedDateObjectArray[i].workYn =
-                  copySelectedDateObjectArray[i].workYn ? false : true;
-                setSelectedDateObjectArray(copySelectedDateObjectArray);
+    <Container maxWidth={"sm"}>
+      <Card variant="none">
+        <CardHeader title="근무가능일" />
+        <Divider variant="middle" />
+        <CardContent>
+          <Paper elevation={10} className="calender">
+            <div className="calenderTitle">
+              <IconButton
+                size="small"
+                className="arrowIcon"
+                onClick={onLeftArrowClick}
+              >
+                <ArrowLeft />
+              </IconButton>
+              <h2 style={{ textAlign: "center" }}>
+                {year} {monthName()}
+              </h2>
+              <IconButton
+                size="small"
+                className="arrowIcon"
+                onClick={onRightArrowClick}
+              >
+                <ArrowRight />
+              </IconButton>
+            </div>
+            <ul className="weekDays">
+              {["일", "월", "화", "수", "목", "금", "토"].map((day, i) => (
+                <li className="date" key={i}>
+                  <Typography variant="h5">{day.toUpperCase()}</Typography>
+                </li>
+              ))}
+              <Divider variant="middle" />
+              {[...new Array(weekStartDay)].map((elem, i) => (
+                <li key={i} className="date"></li>
+              ))}
+              {selectedDateObjectArray.map((elem, i) => (
+                <li
+                  key={i}
+                  className="date"
+                  onClick={() => {
+                    let copySelectedDateObjectArray = [
+                      ...selectedDateObjectArray,
+                    ];
+                    copySelectedDateObjectArray[i].workYn =
+                      copySelectedDateObjectArray[i].workYn ? false : true;
+                    setSelectedDateObjectArray(copySelectedDateObjectArray);
 
-                let workDayCnt = copySelectedDateObjectArray.filter(
-                  (item) => item.workYn == true
-                ).length;
-                setSelectedDateCount(workDayCnt);
-              }}
-            >
-              {elem.holidayYn ? (
-                <Typography variant="h6" style={{ color: "red" }}>
-                  {elem.date.getDate()}
-                </Typography>
-              ) : (
-                <Typography variant="h6">{elem.date.getDate()}</Typography>
-              )}
+                    let workDayCnt = copySelectedDateObjectArray.filter(
+                      (item) => item.workYn == true
+                    ).length;
+                    setSelectedDateCount(workDayCnt);
+                  }}
+                >
+                  {elem.holidayYn ? (
+                    <Typography variant="h6" style={{ color: "red" }}>
+                      {elem.date.getDate()}
+                    </Typography>
+                  ) : (
+                    <Typography variant="h6">{elem.date.getDate()}</Typography>
+                  )}
 
-              {elem.workYn ? <CheckBoxIcon /> : <CheckBoxOutlineBlankIcon />}
-            </li>
-          ))}
-        </ul>
-      </Paper>
-    </div>
+                  {elem.workYn ? (
+                    <Typography variant="h6" style={{ color: "red" }}>
+                      {elem.date.getDate()} 
+                    </Typography>
+                  ) : (
+                    <CheckBoxOutlineBlankIcon />
+                  )}
+                </li>
+              ))}
+            </ul>
+          </Paper>
+        </CardContent>
+      </Card>
+    </Container>
   );
 }

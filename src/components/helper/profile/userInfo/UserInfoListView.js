@@ -19,6 +19,7 @@ import VolunteerActivismIcon from "@mui/icons-material/VolunteerActivism";
 
 import FullScreenDialog from "../../../../moodules/fullScreenDialog/fullScreenDialog.js";
 import HelperDetail from "../../../../pages/consumer/helperDetail.js";
+import HelperChargeBar from "../../../../components/helper/profile/charge/ChargeBar.js";
 
 export default function UserInfoCardView(props) {
   const [isOpenDialog, setIsOpenDialog] = useState(false);
@@ -27,7 +28,7 @@ export default function UserInfoCardView(props) {
     user = {
       userId: "createogu@gmail.com",
       userNm: "오민우",
-      userAge: 32,
+      userAge: "30대",
       userGender: "남",
       addressNm: "세종특별시 대평동",
       hpNo: "010-7208-6332",
@@ -37,9 +38,16 @@ export default function UserInfoCardView(props) {
       payRateSecond: 30,
       payRateThird: 40,
       payRatefourth: 20,
-      thumnailImg: "http://k.kakaocdn.net/dn/bbLJee/btrDoUvapgX/inrmBxgwKq9pwFITzTTx71/img_640x640.jpg",
+      thumnailImg:
+        "http://k.kakaocdn.net/dn/bbLJee/btrDoUvapgX/inrmBxgwKq9pwFITzTTx71/img_640x640.jpg",
     };
   }
+  let ChargeData = {
+    downPaymentRate: 10,
+    intermediatePaymentRate: 20,
+    remainderPaymentRate: 30,
+    defectPaymentRate: 40,
+  };
 
   return (
     <Container maxWidth={"sm"}>
@@ -52,7 +60,13 @@ export default function UserInfoCardView(props) {
       >
         <CardMedia
           component="img"
-          sx={{ width: 100, padding: 1, borderRadius: 50 }}
+          sx={{
+            width: "10vh",
+            height: "10vh",
+            padding: 1,
+            borderRadius: 50,
+            verticalAlign: "middle",
+          }}
           image={user.thumnailImg}
         />
         <Box sx={{ display: "flex", flexDirection: "column" }}>
@@ -63,7 +77,10 @@ export default function UserInfoCardView(props) {
                 direction={"row"}
                 spacing={1}
                 divider={
-                  <Divider variant="middle" orientation="vertical" flexItem />
+                  <Divider
+                    sx={{ height: 18, pt: 0.5 }}
+                    orientation="vertical"
+                  />
                 }
               >
                 <Typography
@@ -73,10 +90,10 @@ export default function UserInfoCardView(props) {
                 >
                   {user.userNm}
                 </Typography>
-                <Typography sx={{ fontSize: 14 }} color="secondery">
+                <Typography sx={{ fontSize: 16 }} color="secondery">
                   {user.userGender}
                 </Typography>
-                <Typography sx={{ fontSize: 14 }} color="secondery">
+                <Typography sx={{ fontSize: 16 }} color="secondery">
                   {user.userAge}
                 </Typography>
               </Stack>
@@ -100,6 +117,9 @@ export default function UserInfoCardView(props) {
                   비용 : {user.cost} 원
                 </Typography>
               </Stack>
+            </Box>
+            <Box sx={{ width: 300 }}>
+              <HelperChargeBar myCharge={ChargeData} />
             </Box>
           </CardContent>
         </Box>

@@ -5,7 +5,7 @@ import { useState } from "react";
 
 export default function SearchList(props) {
   return (
-    <Stack alignItems="center" spacing={1} sx={{pb:8, pt:1}}>
+    <Stack alignItems="center" spacing={1} sx={{ pb: 8, pt: 1 }}>
       <UserInfoList />
       <UserInfoList />
       <UserInfoList />

@@ -48,7 +48,7 @@ export default function SignUp(props) {
     (async () => {
       try {
         const res = await axios.post(
-          "http://construct.agig.co.kr/construct/user/signUp.do",
+          process.env.REACT_APP_BACK_BASE_URL + "/construct/user/signUp.do",
           {
             userEmail: data.get("email"),
             userNm: data.get("name"),

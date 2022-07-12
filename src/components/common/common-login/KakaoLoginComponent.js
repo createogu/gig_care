@@ -30,9 +30,11 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function KakaoLoginModal(props) {
-  const CLIENT_ID = "dd8dc8abd39c3b80b1d70580e1508f70";
-  const REDIRECT_URI = "http://localhost:3000/oauth/callback/kakao";
-
+  const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
+  const REDIRECT_URI = process.env.REACT_APP_REDIRECT_URL+"/oauth/callback/kakao";
+  const yrsdty = process.env.REACT_APP_BACK_BASE_URL;
+  console.log(CLIENT_ID)
+  console.log(REDIRECT_URI)
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code`;
   return (
     <div>
@@ -47,6 +49,9 @@ export default function KakaoLoginModal(props) {
               alignItems: "center",
             }}
           >
+            {CLIENT_ID}
+            {REDIRECT_URI}
+            {yrsdty}
             <a href={KAKAO_AUTH_URL}>
               <div className="kakao_btn"></div>
             </a>
