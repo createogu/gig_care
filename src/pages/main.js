@@ -1,4 +1,5 @@
 import React from "react";
+import { Box, Container } from "@mui/material";
 import { useState, useEffect } from "react";
 import { Routes, Route, Link, useNavigate, Outlet } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -32,81 +33,78 @@ const Main = () => {
     },
   });
   useEffect(() => {
-    console.log(window.localStorage.getItem("userInfo"));
-    if (window.localStorage.getItem("userInfo") ?? false) {
-      const userInfo = JSON.parse(window.localStorage.getItem("userInfo"));
+    const userInfo = JSON.parse(window.localStorage.getItem("userInfo"));
+    if (userInfo ?? false) {
       setLoginUserInfo(userInfo);
     }
   }, []);
- 
+
   return (
-    <div className="mainWrap">
-      <ThemeProvider theme={theme}>
-        <Routes>
+    <ThemeProvider theme={theme}>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <HelperHome
+              menuGb={"helper"}
+              loginUserInfo={loginUserInfo}
+              setLoginUserInfo={setLoginUserInfo}
+            />
+          }
+        ></Route>
+        <Route
+          path="oauth/callback/kakao"
+          element={<KakaoRedirectHandeler menuGb={"helper"} />}
+        />
+        <Route
+          path="/helper"
+          element={
+            <HelperHome
+              menuGb={"helper"}
+              loginUserInfo={loginUserInfo}
+              setLoginUserInfo={setLoginUserInfo}
+            />
+          }
+        >
+          <Route path="SignUp" element={<SignUp />} />
           <Route
-            path="/"
+            path="profile"
             element={
-              <ConsumerHome
-                menuGb={"consumer"}
+              <MyProfile
                 loginUserInfo={loginUserInfo}
-                setLoginUserInfo={setLoginUserInfo}
+                isEditable={true}
+                title="프로필 관리"
               />
             }
-          ></Route>
-          <Route
-            path="oauth/callback/kakao"
-            element={<KakaoRedirectHandeler menuGb={"consumer"} />}
           />
           <Route
-            path="/helper"
-            element={
-              <HelperHome
-                menuGb={"helper"}
-                loginUserInfo={loginUserInfo}
-                setLoginUserInfo={setLoginUserInfo}
-              />
-            }
-          >
-            <Route path="SignUp" element={<SignUp />} />
-            <Route
-              path="profile"
-              element={
-                <MyProfile
-                  loginUserInfo={loginUserInfo}
-                  isEditable={true}
-                  title="프로필 관리"
-                />
-              }
-            />
-            <Route
-              path="calender"
-              element={<Calender loginUserInfo={loginUserInfo} />}
-            />
-            <Route
-              path="contract"
-              element={<Contract loginUserInfo={loginUserInfo} />}
-            />
-            <Route
-              path="payment"
-              element={<Payment loginUserInfo={loginUserInfo} />}
-            />
-          </Route>
+            path="calender"
+            element={<Calender loginUserInfo={loginUserInfo} />}
+          />
           <Route
-            path="/consumer"
-            element={
-              <ConsumerHome
-                menuGb={"consumer"}
-                loginUserInfo={loginUserInfo}
-                setLoginUserInfo={setLoginUserInfo}
-              />
-            }
-          >
-            <Route path="helperList" element={<HelperList />} />
-          </Route>
-          <Route path="*" element={<NotFound />}></Route>
-        </Routes>
-      </ThemeProvider>
-    </div>
+            path="contract"
+            element={<Contract loginUserInfo={loginUserInfo} />}
+          />
+          <Route
+            path="payment"
+            element={<Payment loginUserInfo={loginUserInfo} />}
+          />
+        </Route>
+        <Route
+          path="/consumer"
+          element={
+            <ConsumerHome
+              menuGb={"consumer"}
+              loginUserInfo={loginUserInfo}
+              setLoginUserInfo={setLoginUserInfo}
+            />
+          }
+        >
+          <Route path="helperList" element={<HelperList />} />
+        </Route>
+        <Route path="*" element={<NotFound />}></Route>
+      </Routes>
+    </ThemeProvider>
   );
 };
 

@@ -16,9 +16,9 @@ import EditIcon from "@mui/icons-material/Edit";
 import { useState } from "react";
 
 export default function AddressView(props) {
-  let user = props.loginUserInfo;
+  let helperInfo = props.helperInfo;
   const [isOpenDialog, setIsOpenDialog] = useState(false);
-  const [myAddressNm, setMyAddressNm] = useState();
+  const [myAddressNm, setMyAddressNm] = useState(helperInfo.addressNm);
   function openEditDialog() {
     setIsOpenDialog(true);
   }
@@ -40,7 +40,6 @@ export default function AddressView(props) {
         />
         <Divider variant="middle" />
         <CardContent>
-          {" "}
           <Typography color="textPrimary" gutterBottom variant="h7">
             {myAddressNm}
           </Typography>
@@ -54,7 +53,7 @@ export default function AddressView(props) {
       >
         <AddressEdit
           setIsOpenDialog={setIsOpenDialog}
-          loginUserInfo={props.loginUserInfo}
+          helperInfo={helperInfo}
           setMyAddressNm={setMyAddressNm}
         />
       </FullScreenDialog>

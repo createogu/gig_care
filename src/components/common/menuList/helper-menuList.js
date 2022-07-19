@@ -3,14 +3,14 @@ import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import Fab from "@mui/material/Fab";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import HomeIcon from "@mui/icons-material/Home";
-import PersonIcon from '@mui/icons-material/Person';
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-import CreditCardIcon from '@mui/icons-material/CreditCard';
-import EditIcon from '@mui/icons-material/Edit';
+import PersonIcon from "@mui/icons-material/Person";
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+import CreditCardIcon from "@mui/icons-material/CreditCard";
+import EditIcon from "@mui/icons-material/Edit";
 
 const helperMenuList = (props) => {
   return (
-    <BottomNavigation maxWidth="x1" showLabels onChange={props.handleChange}>
+    <BottomNavigation showLabels onChange={props.handleChange}>
       <BottomNavigationAction
         label="내정보"
         value="profile"
@@ -22,13 +22,19 @@ const helperMenuList = (props) => {
         icon={<CalendarMonthIcon />}
       />
       <BottomNavigationAction
-        value="helperList"
+        value=""
         icon={
           <Fab
             color="primary"
-            sx={{ border: 5, width:65, height:65, position: "fixed", bottom: 8 }}
+            sx={{
+              border: 5,
+              width: 65,
+              height: 65,
+              position: "fixed",
+              bottom: 8,
+            }}
           >
-            <HomeIcon  sx={{fontSize:40}}/>
+            <HomeIcon sx={{ fontSize: 40 }} />
           </Fab>
         }
       />
@@ -46,4 +52,4 @@ const helperMenuList = (props) => {
   );
 };
 
-export default helperMenuList
+export default helperMenuList;

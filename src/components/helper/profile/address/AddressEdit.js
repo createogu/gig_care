@@ -15,8 +15,8 @@ export default function AddressEdit(props) {
           const res = await axios.post(
             process.env.REACT_APP_BACK_BASE_URL + "/construct/user/modify.do",
             {
-              userId: props.loginUserInfo.userId,
-              addressCd: addressMngNo,
+              userId: props.helperInfo.userId,
+              addressMngNo: addressMngNo,
             }
           );
           props.setMyAddressNm(addressNm)

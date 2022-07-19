@@ -8,7 +8,6 @@ import { Divider } from "@mui/material";
 
 export default function SubWrap(props) {
   return (
-    <Container maxWidth={"sm"}>
       <Card className="subWrap" elevation={3}>
         <CardContent>
           <div className="subWrap-title">{props.title}</div>
@@ -19,6 +18,5 @@ export default function SubWrap(props) {
           <div className="childDiv">{props.children}</div>
         </CardContent>
       </Card>
-    </Container>
   );
 }

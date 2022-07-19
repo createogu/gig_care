@@ -1,7 +1,6 @@
 import * as React from "react";
 import {
-  Avatar,
-  Box,
+  IconButton,
   Button,
   Card,
   CardHeader,
@@ -14,39 +13,37 @@ import {
 import { useState } from "react";
 import FullScreenDialog from "../../../../moodules/fullScreenDialog/fullScreenDialog";
 import AboutMeEdit from "./AboutMeEdit";
+import EditIcon from "@mui/icons-material/Edit";
 import "./AboutMe.css";
 
 export default function AboutMeView(props) {
+  let helperInfo = props.helperInfo;
   const [isOpenDialog, setIsOpenDialog] = useState(false);
-  const [myAboutMe, setMyAboutMe] = useState();
+  const [myAboutMe, setMyAboutMe] = useState(helperInfo.aboutMe);
   function openEditDialog() {
     setIsOpenDialog(true);
   }
   return (
     <Container maxWidth={"sm"}>
       <Card variant="none">
-        <CardHeader title="자기소개" />
+        <CardHeader
+          title="자기소개"
+          action={
+            props.isEditable ? (
+              <CardActions>
+                <IconButton type="submit" onClick={openEditDialog}>
+                  <EditIcon />
+                </IconButton>
+              </CardActions>
+            ) : null
+          }
+        />
         <Divider variant="middle" />
         <CardContent>
           <Typography variant="body1" whiteSpace={"pre-wrap"}>
-            안녕하세요 오민우입니다.
-            열심히하겠습니다.
-            {/* {myAboutMe} */}
+            {myAboutMe}
           </Typography>
         </CardContent>
-        {props.isEditable ? (
-          <CardActions>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-              onClick={openEditDialog}
-            >
-              수정
-            </Button>
-          </CardActions>
-        ) : null}
       </Card>
 
       <FullScreenDialog
@@ -56,7 +53,7 @@ export default function AboutMeView(props) {
       >
         <AboutMeEdit
           setIsOpenDialog={setIsOpenDialog}
-          loginUserInfo={props.loginUserInfo}
+          helperInfo={helperInfo}
           myAboutMe={myAboutMe}
           setMyAboutMe={setMyAboutMe}
         />

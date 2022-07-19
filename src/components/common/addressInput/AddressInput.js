@@ -23,31 +23,9 @@ export default function AddressInput(props) {
   const [searchType, setSearchType] = useState();
   const [addressList, setAddressList] = useState([{}]);
   const [searchAddressNm, setSearchAddressNm] = useState();
+  const [validateText, setValidateText] = useState();
   const { location } = useWatchLocation(geolocationOptions);
   const timer = null;
-  useEffect(() => {
-    (async () => {
-      try {
-        console.log(searchAddressNm);
-        const res = await axios.post(
-          process.env.REACT_APP_BACK_BASE_URL +
-            "/construct/common/getSearchTextBaseAddressList.do",
-          {
-            address_nm: searchAddressNm,
-          }
-        );
-
-        let rtnData = res.data;
-        if (rtnData != null) {
-          setSearchType("searchAdressNm");
-          setAddressList(rtnData.commAddressList);
-          console.log(rtnData.commAddressList);
-        }
-      } catch (e) {
-        console.error(e);
-      }
-    })();
-  }, [searchAddressNm]);
 
   return (
     <Paper elevation={2}>
@@ -55,17 +33,45 @@ export default function AddressInput(props) {
         <SearchIcon />
       </IconButton>
       <InputBase
-        sx={{ ml: 1, mb: 2, width: 300 }}
+        sx={{ ml: 1, mb: 2, width: "calc(100vw - 90px)" }}
         placeholder="동,읍,면으로 주소를 검색해주세요."
-        onChange={(e) => {
-          clearTimeout(timer);
-          if (e.target.value.length > 1) {
-            timer = setTimeout(function () {
-              setSearchAddressNm(e.target.value);
-            }, 2000);
+        onKeyUp={(e) => {
+          if (e.target.value.length < 1) {
+            setAddressList("");
+            setValidateText("검색어를 입력해주세요.");
+          } else {
+            setValidateText("");
+            if (e.key == "Enter") {
+              (async () => {
+                try {
+                  console.log(searchAddressNm);
+                  const res = await axios.post(
+                    process.env.REACT_APP_BACK_BASE_URL +
+                      "/construct/common/getSearchTextBaseAddressList.do",
+                    {
+                      address_nm: e.target.value,
+                    }
+                  );
+
+                  let rtnData = res.data;
+                  if (rtnData != null) {
+                    setSearchAddressNm(e.target.value);
+                    setSearchType("searchAdressNm");
+                    setAddressList(rtnData.commAddressList);
+                  }
+                } catch (e) {
+                  console.error(e);
+                }
+              })();
+            }
           }
         }}
       />
+      <Box>
+        <Typography variant={"body2"} sx={{ textAlign: "right", color: "red" }}>
+          {validateText}
+        </Typography>
+      </Box>
       <Button
         type="submit"
         variant="contained"
@@ -98,7 +104,7 @@ export default function AddressInput(props) {
         <LocationSearchingIcon />
         <Typography sx={{ fontSize: 14, pl: 1 }}>현재 위치로 찾기</Typography>
       </Button>
-      {addressList.length > 1 ? (
+      {addressList.length > 0 ? (
         <Box>
           {searchType == "gps" ? (
             <Typography sx={{ fontSize: 14, pl: 2, pb: 2 }} color="black">
@@ -130,7 +136,7 @@ export default function AddressInput(props) {
       ) : (
         <Box sx={{ p: 1, pl: 2 }}>
           <Typography sx={{ fontSize: 16, pb: 1 }} color="black">
-            검색 결과가 업습니다.
+            검색 결과가 없습니다.
           </Typography>
           <Divider />
         </Box>

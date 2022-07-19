@@ -22,25 +22,7 @@ import MaleIcon from "@mui/icons-material/Male";
 import FemaleIcon from "@mui/icons-material/Female";
 
 export default function UserInfoCardView(props) {
-  let user = props.userInfo;
-  if (user == null) {
-    user = {
-      userId: "createogu@gmail.com",
-      userNm: "오민우",
-      userAge: "30대",
-      userGender: "남",
-      addressNm: "세종특별시 대평동",
-      hpNo: "010-7208-6332",
-      minPeriod: 2,
-      cost: 100000,
-      payRateFirst: 10,
-      payRateSecond: 30,
-      payRateThird: 40,
-      payRatefourth: 20,
-      thumnailImg:
-        "http://k.kakaocdn.net/dn/bbLJee/btrDoUvapgX/inrmBxgwKq9pwFITzTTx71/img_640x640.jpg",
-    };
-  }
+  let helperInfo = props.helperInfo;
 
   return (
     <Box
@@ -54,7 +36,7 @@ export default function UserInfoCardView(props) {
       }}
     >
       <Avatar
-        src={user.thumnailImg}
+        src={helperInfo.thumnailImgUrl}
         sx={{
           border: "15px solid #eee",
           height: 160,
@@ -70,13 +52,13 @@ export default function UserInfoCardView(props) {
           divider={<Divider variant="middle" orientation="vertical" flexItem />}
         >
           <Typography sx={{ fontSize: 24 }} color="primary" fontWeight="bolder">
-            {user.userNm}
+            {helperInfo.userNm}
           </Typography>
           <Typography sx={{ fontSize: 16, pt: 0.7 }} color="secondery">
-            {user.userGender}
+            {helperInfo.genderCd}
           </Typography>
           <Typography sx={{ fontSize: 16, pt: 0.7 }} color="secondery">
-            {user.userAge}
+            {helperInfo.age}
           </Typography>
         </Stack>
       </Box>
@@ -86,19 +68,19 @@ export default function UserInfoCardView(props) {
             sx={{ fontSize: 16, fontWeight: "bolder" }}
             color="text.secondary"
           >
-            {user.addressNm}
+            {helperInfo.addressNm}
           </Typography>
           <Typography
             sx={{ fontSize: 16, fontWeight: "bolder" }}
             color="text.secondary"
           >
-            최소기간 : {user.minPeriod}일
+            최소기간 : {helperInfo.minPeriod}일
           </Typography>
           <Typography
             sx={{ fontSize: 16, fontWeight: "bolder" }}
             color="text.secondary"
           >
-            비용 : {user.cost} 원
+            비용 : {helperInfo.cost} 원
           </Typography>
         </Stack>
       </Box>

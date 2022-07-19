@@ -1,19 +1,13 @@
 import * as React from "react";
-import {
-  Box,
-  Button,
-  Avatar,
-  Chip,
-  Stack,
-  Paper,
-  TextField,
-} from "@mui/material";
+import { Box, Button, Stack, Typography, TextField } from "@mui/material";
 import "./Charge.css";
 import { useState, useEffect } from "react";
 import SubWrap from "../../../../layout/subwrap/subWrap";
 import InputAdornment from "@mui/material/InputAdornment";
 import axios from "axios";
 export default function ChargeEdit(props) {
+  const [isValidate, setIsValidate] = useState(false);
+  const [validateText, setValidateText] = useState();
   const [isOpenDialog, setIsOpenDialog] = useState(false);
   const [minWorkDays, setMinWorkDays] = useState(props.myCharge.minWorkDays);
   const [chargePerDay, setChargePerDay] = useState(props.myCharge.chargePerDay);
@@ -29,6 +23,22 @@ export default function ChargeEdit(props) {
   const [defectPaymentRate, setDefectPaymentRate] = useState(
     props.myCharge.defectPaymentRate
   );
+
+  function validateSumPercent() {
+    let totalSum =
+      downPaymentRate * 1 +
+      intermediatePaymentRate * 1 +
+      remainderPaymentRate * 1 +
+      defectPaymentRate * 1;
+
+    let validate = totalSum > 100 ? true : false;
+    setIsValidate(validate);
+    if (validate) {
+      setValidateText("100%를 초과할 수 없습니다.");
+    } else {
+      setValidateText("");
+    }
+  }
 
   function saveMyCharge() {
     (async () => {
@@ -57,19 +67,18 @@ export default function ChargeEdit(props) {
   }
 
   return (
-    <SubWrap subTitle={"비용을 설정해주세요."}>
+    <Box sx={{ p: 2 }}>
       <Stack container spacing={1.5}>
         <Box>
           <TextField
             label="최소 근무일수"
-            id="outlined-start-adornment"
-            sx={{ m: 1, width: "20ch" }}
+            fullWidth
+            sx={{ mb: 1, mt: 1 }}
             type="number"
             value={minWorkDays}
             onChange={(e) => {
               setMinWorkDays(e.target.value);
             }}
-            InputP
             InputProps={{
               endAdornment: <InputAdornment position="end">일</InputAdornment>,
             }}
@@ -78,8 +87,8 @@ export default function ChargeEdit(props) {
         <Box>
           <TextField
             label="일 단가"
-            id="outlined-start-adornment"
-            sx={{ m: 1, width: "20ch" }}
+            fullWidth
+            sx={{ mb: 1, mt: 1 }}
             value={chargePerDay}
             type="number"
             onChange={(e) => {
@@ -93,13 +102,18 @@ export default function ChargeEdit(props) {
         <Box>
           <TextField
             label="계약금"
-            id="outlined-start-adornment"
-            sx={{ m: 1, width: "20ch" }}
+            fullWidth
+            sx={{ mb: 1, mt: 1 }}
             value={downPaymentRate}
             type="number"
-            helperText="100%를 초과 할 수 없습니다."
             onChange={(e) => {
               setDownPaymentRate(e.target.value);
+            }}
+            onKeyUp={(e) => {
+              validateSumPercent();
+            }}
+            onBlur={(e) => {
+              validateSumPercent();
             }}
             InputProps={{
               endAdornment: <InputAdornment position="end">%</InputAdornment>,
@@ -109,12 +123,18 @@ export default function ChargeEdit(props) {
         <Box>
           <TextField
             label="중도금"
-            id="outlined-start-adornment"
-            sx={{ m: 1, width: "20ch" }}
+            fullWidth
+            sx={{ mb: 1, mt: 1 }}
             value={intermediatePaymentRate}
             type="number"
             onChange={(e) => {
               setIntermediatePaymentRate(e.target.value);
+            }}
+            onKeyUp={(e) => {
+              validateSumPercent();
+            }}
+            onBlur={(e) => {
+              validateSumPercent();
             }}
             InputProps={{
               endAdornment: <InputAdornment position="end">%</InputAdornment>,
@@ -124,12 +144,18 @@ export default function ChargeEdit(props) {
         <Box>
           <TextField
             label="잔금"
-            id="outlined-start-adornment"
-            sx={{ m: 1, width: "20ch" }}
+            fullWidth
+            sx={{ mb: 1, mt: 1 }}
             value={remainderPaymentRate}
             type="number"
             onChange={(e) => {
               setRemainderPaymentRate(e.target.value);
+            }}
+            onKeyUp={(e) => {
+              validateSumPercent();
+            }}
+            onBlur={(e) => {
+              validateSumPercent();
             }}
             InputProps={{
               endAdornment: <InputAdornment position="end">%</InputAdornment>,
@@ -139,12 +165,18 @@ export default function ChargeEdit(props) {
         <Box>
           <TextField
             label="하자"
-            id="outlined-start-adornment"
-            sx={{ m: 1, width: "20ch" }}
+            fullWidth
+            sx={{ mb: 1, mt: 1 }}
             value={defectPaymentRate}
             type="number"
             onChange={(e) => {
               setDefectPaymentRate(e.target.value);
+            }}
+            onKeyUp={(e) => {
+              validateSumPercent();
+            }}
+            onBlur={(e) => {
+              validateSumPercent();
             }}
             InputProps={{
               endAdornment: <InputAdornment position="end">%</InputAdornment>,
@@ -153,8 +185,12 @@ export default function ChargeEdit(props) {
         </Box>
       </Stack>
 
+      <Typography variant={"body2"} sx={{ textAlign: "right", color: "red" }}>
+        {validateText}
+      </Typography>
       <Button
         type="submit"
+        disabled={isValidate}
         fullWidth
         variant="contained"
         sx={{ mt: 1, mb: 2 }}
@@ -162,6 +198,6 @@ export default function ChargeEdit(props) {
       >
         저장
       </Button>
-    </SubWrap>
+    </Box>
   );
 }

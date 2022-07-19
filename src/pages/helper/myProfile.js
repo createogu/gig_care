@@ -26,40 +26,33 @@ export default function MyProfile(props) {
             userId: props.loginUserInfo.userId,
           }
         );
-        console.log(res);
         let rtnData = res.data;
         if (rtnData != null) {
           setMyProfile(rtnData);
-          setIsEditable(true)
+          setIsEditable(true);
         }
       } catch (e) {
         console.error(e);
       }
     })();
   }, []);
-  
+
   return (
     <MainWrap>
       {myProfile && (
         <Stack alignItems="center" spacing={1} sx={{ pb: 7 }}>
-          <UserInfo loginUserInfo={props.loginUserInfo} />
+          <UserInfo helperInfo={myProfile.helperInfo} />
           <Address
-            loginUserInfo={props.loginUserInfo}
+            helperInfo={myProfile.helperInfo}
             isEditable={isEditable}
           />
           <AboutMe
-            loginUserInfo={props.loginUserInfo}
+            helperInfo={myProfile.helperInfo}
             isEditable={isEditable}
           />
           <Charge myCharge={myProfile.charge} isEditable={isEditable} />
-          <Skill
-            loginUserInfo={props.loginUserInfo}
-            isEditable={isEditable}
-          />
-          <Career
-            loginUserInfo={props.loginUserInfo}
-            isEditable={isEditable}
-          />
+          <Skill  helperInfo={myProfile.helperInfo} tag={myProfile.tag} isEditable={isEditable} />
+          {/* <Career loginUserInfo={props.loginUserInfo} isEditable={isEditable} /> */}
           <CanWorkDayCalender
             loginUserInfo={props.loginUserInfo}
             isEditable={isEditable}

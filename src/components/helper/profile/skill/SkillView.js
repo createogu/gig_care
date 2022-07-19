@@ -1,6 +1,6 @@
 import * as React from "react";
 import {
-  Avatar,
+  IconButton,
   Box,
   Chip,
   Button,
@@ -19,9 +19,11 @@ import DoneIcon from "@mui/icons-material/Done";
 import { useState } from "react";
 import FullScreenDialog from "../../../../moodules/fullScreenDialog/fullScreenDialog";
 import SkillEdit from "./SkillEdit";
+import EditIcon from "@mui/icons-material/Edit";
 export default function SkillView(props) {
+  let helperInfo = props.helperInfo;
   const [isOpenDialog, setIsOpenDialog] = useState(false);
-  const [mySkills, setMySkills] = useState([]);
+  const [tagList, setTagList] = useState([]);
   function openEditDialog() {
     setIsOpenDialog(true);
   }
@@ -29,46 +31,44 @@ export default function SkillView(props) {
   return (
     <Container maxWidth={"sm"}>
       <Card variant="none">
-        <CardHeader title="돌봄대상" />
+        <CardHeader
+          title="돌봄대상"
+          action={
+            props.isEditable ? (
+              <CardActions>
+                <IconButton type="submit" onClick={openEditDialog}>
+                  <EditIcon />
+                </IconButton>
+              </CardActions>
+            ) : null
+          }
+        />
         <Divider variant="middle" />
         <CardContent>
-          <Grid container spacing={2}>
-            {mySkills.map((item, index) => {
-              return (
-                <div>
-                  <Chip
-                    className="CusotomChip"
-                    label={item.comm_nm}
-                    variant="outlined"
-                    color="primary"
-                    icon={<DoneIcon />}
-                  />
-                </div>
-              );
-            })}
-          </Grid>
+        {props.tag.map((tagItem, index) => {
+          return (
+            <Chip
+              sx={{ mb: 1, mr: 1 }}
+              key={index}
+              label={tagItem.tagNm}
+              
+            />
+          );
+        })}
         </CardContent>
-        {props.isEditable ? (
-          <CardActions>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 1, mb: 1 }}
-              onClick={openEditDialog}
-            >
-              수정
-            </Button>
-          </CardActions>
-        ) : null}
       </Card>
 
       <FullScreenDialog
         isOpenDialog={isOpenDialog}
         setIsOpenDialog={setIsOpenDialog}
-        title={"보유기술 수정"}
+        title={"돌봄대상 수정"}
       >
-        <SkillEdit mySkills={mySkills} setMySkills={setMySkills} />
+        <SkillEdit
+          tagList={props.tag}
+          helperInfo={helperInfo}
+          setIsOpenDialog={setIsOpenDialog}
+          setTagList={setTagList}
+        />
       </FullScreenDialog>
     </Container>
   );

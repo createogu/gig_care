@@ -16,7 +16,6 @@ import "./AboutMe.css";
 
 export default function AboutMeEdit(props) {
   const [AboutMe, setAboutMe] = useState("");
-  const [rowCount, setRowCount] = useState(0);
   const [textLength, setTextLength] = useState(0);
   const [isValidate, setIsValidate] = useState(true);
   const [validateText, setValidateText] = useState();
@@ -26,8 +25,10 @@ export default function AboutMeEdit(props) {
   }
 
   function validateCheck() {
-    let validate = textLength <= 100 && rowCount <= 5 ? true : false;
-    let valiText = !validate ? "입력조건을 확인해주세요." : null;
+    let validate = textLength > 10 && textLength <= 100 ? true : false;
+    let valiText = !validate
+      ? "입력조건을 확인해주세요.(10자 이상, 100자 이하)"
+      : null;
 
     setValidateText(valiText);
     setIsValidate(validate);
@@ -36,9 +37,9 @@ export default function AboutMeEdit(props) {
     (async () => {
       try {
         const res = await axios.post(
-          process.env.REACT_APP_BACK_BASE_URL+"/construct/user/modify.do",
+          process.env.REACT_APP_BACK_BASE_URL + "/construct/user/modify.do",
           {
-            userId: props.loginUserInfo.userId,
+            userId: props.helperInfo.userId,
             aboutMe: AboutMe,
           }
         );
@@ -53,13 +54,14 @@ export default function AboutMeEdit(props) {
   }, []);
 
   return (
-    <SubWrap subTitle={"100글자 이내, 5줄 이하 입력가능"}>
+    <Box sx={{ p: 1 }}>
       <TextField
         id="outlined-textarea"
         fullWidth
         multiline
+        placeholder={"보호자에게 나를 소개해 주세요."}
         helperText={
-          <div>
+          <Box>
             <Box
               sx={{
                 alignItems: "end",
@@ -68,7 +70,6 @@ export default function AboutMeEdit(props) {
               }}
             >
               <p> {textLength} / 100 글자 </p>
-              <p>{rowCount} / 5줄</p>
             </Box>
             <Typography
               variant={"body2"}
@@ -76,14 +77,13 @@ export default function AboutMeEdit(props) {
             >
               {validateText}
             </Typography>
-          </div>
+          </Box>
         }
         maxRows={5}
         minRows={5}
         defaultValue={AboutMe}
         onChange={(e) => {
           setTextLength(e.target.value.length);
-          setRowCount(e.target.value.split("\n").length);
           setAboutMe(e.target.value);
         }}
         onKeyUp={(e) => {
@@ -109,6 +109,6 @@ export default function AboutMeEdit(props) {
       >
         저장
       </Button>
-    </SubWrap>
+    </Box>
   );
 }

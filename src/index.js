@@ -5,16 +5,20 @@ import "./style/commonStyle.css";
 import Main from "./pages/main";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
-import * as serviceWorkerRegistration from './serviceWorkerRegistration';
+import { Provider } from "react-redux";
+import store from "./store/store.js";
+import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 
 serviceWorkerRegistration.register();
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   // <React.StrictMode>
+  <Provider store={store}>
     <BrowserRouter>
       <Main />
     </BrowserRouter>
+  </Provider>
   // </React.StrictMode>
 );
 
